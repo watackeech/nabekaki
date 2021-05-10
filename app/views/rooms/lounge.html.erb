@@ -1,0 +1,16 @@
+<%= javascript_pack_tag 'lounge' %>
+<div id='lounge' data-lounge="I'm_here"></div>
+<div id='room_info' data-room_name="<%= @room.room_name %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>">
+
+    <h1><%= "#{@room.room_name}" %></h1>
+    <% if @room.user.id == @user.id %>
+    <p><button id="start-btn">ゲームスタート！</button></p>
+    <% else %>
+    <p>待機中...</p>
+    <% end %>
+
+</div>
+
+    <div id="ajaxreload">
+        <%# <h1>Ajax更新エリア</h1> =%>
+    </div>

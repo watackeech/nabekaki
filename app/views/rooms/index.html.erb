@@ -1,0 +1,6 @@
+
+<div id='in_room' class="boo!"></div>
+<%= link_to "新規ルーム作成！", rooms_new_path %>
+<br>
+<%= link_to "ルーム参加！", rooms_join_path %>
+<div id='user_info' data-user_id="<%= @user.id %>" data-user_name="<%= @user.username %>">

@@ -1,0 +1,15 @@
+<div id='in_room' class="boo!"></div>
+<div id='user_info' data-user_id="<%= @user.id %>" data-user_name="<%= @user.username %>">
+    <div>
+        <ul>
+            <% @rooms.each do |room| %>
+                <li id="test"><%= "#{room.room_name}" %></li>
+            <% end %>
+        </ul>
+    </div>
+
+    <form>
+    <label>ルーム名入力</label><br>
+    <input type="text" data-behavior="room_speaker">
+    </form>
+</div>
