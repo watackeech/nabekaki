@@ -13,8 +13,10 @@ class RoomsController < ApplicationController
   def create
     room = Room.new(room_params)
     room.user_id = current_user.id
-    if room.save
-      redirect_to :action => "join"
+    image = Picture.new(picture_params)
+    if room.save || image.save
+      # redirect_to :action => "join"
+      return
     else
       redirect_to :action => "new"
     end
@@ -58,5 +60,8 @@ class RoomsController < ApplicationController
   private
     def room_params
       params.require(:room).permit(:room_name)
+    end
+    def picture_params
+      params.require(:picture).permit(:image, :user_id, :room_name)
     end
 end
