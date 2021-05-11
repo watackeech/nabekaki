@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   get 'rooms/:room_name' => 'rooms#show', as: 'room'
   post 'picsends' => 'picsends#create', as: 'pictures'
   devise_for :users
+
 end

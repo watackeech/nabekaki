@@ -2,6 +2,7 @@ class PicsendsController < ApplicationController
 
     def new
         @image = Picture.new
+
     end
 
     def create
