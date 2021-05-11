@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   post 'rooms' => 'rooms#create'
   get 'rooms/ajax'
   get 'rooms/:room_name' => 'rooms#show', as: 'room'
-  post 'picsends' => 'picsends#create', as: 'pictures'
+  post 'rooms' => 'picsends#create', as: 'pictures'
   devise_for :users
 end

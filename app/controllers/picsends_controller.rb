@@ -1,12 +1,4 @@
 class PicsendsController < ApplicationController
-    def yay
-        @images = Picture.all
-        @image = Picture.new
-    end
-
-    def new
-        @image = Picture.new
-    end
 
     def create
         image = Picture.new(picture_params)
