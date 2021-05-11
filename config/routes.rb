@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get 'rooms/ajax'
   get 'rooms/:room_name' => 'rooms#show', as: 'room'
   post 'picsends' => 'picsends#create', as: 'pictures'
-  get '/picsends' => 'picsends#dummy'
+  get 'picsends' => 'picsends#dummy'
+  get 'picsends/new' => 'picsends#new'
   devise_for :users
 
 end
