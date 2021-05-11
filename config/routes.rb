@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'rooms/:room_name/showjax.html.erb' => 'rooms#showjax'
   get 'rooms/:room_name/picajax.html.erb' => 'rooms#picajax'
   post 'rooms' => 'rooms#create'
+  post 'picpost' => 'picpost#create'
   get 'rooms/ajax'
   get 'rooms/:room_name' => 'rooms#show', as: 'room'
   devise_for :users

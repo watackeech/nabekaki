@@ -13,10 +13,7 @@ class RoomsController < ApplicationController
   def create
     room = Room.new(room_params)
     room.user_id = current_user.id
-    image = Picture.new(picture_params)
-    if image.save
-      return
-    elsif room.save
+    if room.save
       redirect_to :action => "join"
     else
       redirect_to :action => "new"
