@@ -1,5 +1,9 @@
 class PicsendsController < ApplicationController
 
+    def new
+        @image = Picture.new
+    end
+
     def create
         image = Picture.new(picture_params)
         if image.save
