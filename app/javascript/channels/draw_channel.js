@@ -88,6 +88,8 @@ import consumer from "./consumer"
 
     setInterval(authorized, 1000);
 
+    
+
 
     $('#turn-btn').on('click', function() {
       appRoom.turn($('#user_info').data('user_id'), 0)

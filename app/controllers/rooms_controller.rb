@@ -34,11 +34,20 @@ class RoomsController < ApplicationController
     @user = User.find(current_user.id)
     @room = Room.find_by(room_name: params[:room_name])
     @players = User.where(roomname: params[:room_name]).order(:randnum)
+    @image = Picture.new
+    @images = Picture.where(room_name: params[:room_name])
   end
 
   # ajax通信用のアクション
   def ajax
     render layout: false
+    @images = Picture.all
+  end
+
+  def picajax
+    render layout: false
+    @room = Room.find_by(room_name: params[:room_name])
+    @images = Picture.all
   end
   # def showjax
   #   render layout: false

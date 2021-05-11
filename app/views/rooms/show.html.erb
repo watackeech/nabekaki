@@ -1,11 +1,9 @@
 
 <%= javascript_pack_tag 'oekaki' %>
+<%= javascript_pack_tag 'picload' %>
 <div id="current_drawer" class="default" data-randnum="<%= @user.randnum %>"></div>
 <div id='user_info' data-room_name="<%= @room.room_name %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>"></div>
 <div id='current_state' class="playing!"></div>
-<%# <div id="ajaxreload">
-        <h1>Ajax更新エリア</h1>
-</div>=%>
 
 <ul id="player-index">
     <% @players.each do |player| %>
@@ -23,4 +21,21 @@
         <p>線の太さ<input type="range" min="0" max="100" value="5" id="line-width"><span id="width-num">5</span></p>
     </div>
 
+</div>
+
+<%= form_for @image, :url => { :controller => :picsends, :action => :create }  do |f| %>
+    <div class="field">
+        <%= f.label :image %>
+        <%= f.file_field :image %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :room_name, :value => @room.room_name %>
+    </div>
+    <div id="picpost-btn">
+        <%= f.submit "Tweetする" %>
+    </div>
+<% end %>
+
+
+<div id="picreload">
+        <%# <h1>Ajax更新エリア</h1> =%>
 </div>

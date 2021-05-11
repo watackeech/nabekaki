@@ -24,7 +24,6 @@ const appEntrance = consumer.subscriptions.create("EntranceChannel", {
     var div = document.getElementById('ajaxreload');
     function broadcast() {
         ajaxUpdate(url, div);
-        console.log("ajaxtest!");
     };
     broadcast();
   },
@@ -35,12 +34,12 @@ const appEntrance = consumer.subscriptions.create("EntranceChannel", {
 });
 
 // onloadイベントが発火しない。。
-document.addEventListener("DOMContentLoaded", function(){
-  console.log($("#in_room").attr("class"));
-  if($("#in_room").attr("class") === "boo!"){
-    console.log("not in room!");
-  }
-});
+// document.addEventListener("DOMContentLoaded", function(){
+//   console.log($("#in_room").attr("class"));
+//   if($("#in_room").attr("class") === "boo!"){
+//     console.log("not in room!");
+//   }
+// });
 // window.onload = function() {
   window.addEventListener("keypress", function(e) {
     if (e.keyCode === 13) {

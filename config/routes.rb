@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   # ajax通信用のurl
   get 'rooms/:room_name/ajax.html.erb' => 'rooms#ajax'
   get 'rooms/:room_name/showjax.html.erb' => 'rooms#showjax'
+  get 'rooms/:room_name/picajax.html.erb' => 'rooms#picajax'
   post 'rooms' => 'rooms#create'
   get 'rooms/ajax'
   get 'rooms/:room_name' => 'rooms#show', as: 'room'
+  post 'picsends' => 'picsends#create', as: 'pictures'
   devise_for :users
 end

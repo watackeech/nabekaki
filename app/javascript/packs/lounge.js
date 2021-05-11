@@ -28,7 +28,6 @@ window.addEventListener('load', function () {
 
     function selfload() {
         ajaxUpdate(url, div);
-        console.log("ajaxtest!");
     };
     selfload();
 
