@@ -25,6 +25,7 @@ gem 'devise'
 gem 'carrierwave' , '~> 1.3' ,  '>= 1.3.1'
 gem 'cloudinary'
 gem 'dotenv-rails'
+# gem 'carrierwave-base64', '2.10.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

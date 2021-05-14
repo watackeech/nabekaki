@@ -23,16 +23,17 @@
 
 </div>
 
-<%= form_for @image, :url => { :controller => :picpost, :action => :create }  do |f| %>
+<%= form_for @picture, :url => { :controller => :picpost, :action => :create }  do |f| %>
     <div class="field">
-        <%= f.label :image %>
-        <%= f.file_field :image %>
-        <%= f.hidden_field :user_id, :value => current_user.id %>
-        <%= f.hidden_field :room_name, :value => @room.room_name %>
+        <%# f.label :image %>
+        <%# f.hidden_field :image, :value => '' %>
+        <%# f.file_field :image %>
+        <%# f.hidden_field :user_id, :value => current_user.id %>
+        <%# f.hidden_field :room_name, :value => '' %>
+        <%# @room.room_name %>
     </div>
-    <div id="picpost-btn">
-        <%= f.submit "Tweetする" %>
-    </div>
+    <button type="button" id="picpost-btn">保存</button>
+        <%# f.submit "Tweetする" %>
 <% end %>
 
 

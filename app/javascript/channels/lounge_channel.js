@@ -10,6 +10,7 @@ const appLounge = consumer.subscriptions.create({channel: 'LoungeChannel', room:
   },
 
   received(data) {
+    console.log("received!!!!");
     if(data['game'] === 0 && $('#room_info').data('room_name') === data['roomname']){
       window.location.pathname = "rooms/" + data['roomname']
     }
@@ -17,7 +18,11 @@ const appLounge = consumer.subscriptions.create({channel: 'LoungeChannel', room:
 
   start: function(roomname, game) {
     return this.perform('start', {roomname: roomname, game: game});
-  }
+  },
+
+  // deleteroom: function(roomname) {
+  //   return this.perform('deleteroom', {roomname: roomname});
+  // }
 });
 
 window.addEventListener('load', function () {

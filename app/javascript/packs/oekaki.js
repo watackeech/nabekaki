@@ -77,6 +77,12 @@ window.addEventListener('load', () => {
         });
     };
 
+    // function setBgColor(){
+    //     // canvasの背景色を設定(指定がない場合にjpeg保存すると背景が黒になる)
+    //     ctx.fillStyle = "#ffffff";
+    //     ctx.fillRect(0,0,canvas.width, canvas.height);
+    // }
+
     function authorized(){
         if(String($('#user_info').data('user_id')) === $("#current_drawer").attr("class")){
             initEventHandler();

@@ -2,7 +2,11 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    require "active_support/time"
     @user = User.find(current_user.id)
+    # room = Room.where("created_time > ?", Time.new - 10)
+    # Picture.where(room_name: room).delete_all
+    # room.delete_all
   end
 
   def new
@@ -13,6 +17,7 @@ class RoomsController < ApplicationController
   def create
     room = Room.new(room_params)
     room.user_id = current_user.id
+    room.created_time = Time.new
     if room.save
       redirect_to :action => "join"
     else
@@ -34,7 +39,7 @@ class RoomsController < ApplicationController
     @user = User.find(current_user.id)
     @room = Room.find_by(room_name: params[:room_name])
     @players = User.where(roomname: params[:room_name]).order(:randnum)
-    @image = Picture.new
+    @picture = Picture.new
     @images = Picture.where(room_name: params[:room_name])
   end
 

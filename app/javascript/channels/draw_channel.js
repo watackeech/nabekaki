@@ -88,7 +88,7 @@ import consumer from "./consumer"
 
     setInterval(authorized, 1000);
 
-    
+
 
 
     $('#turn-btn').on('click', function() {

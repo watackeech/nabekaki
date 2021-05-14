@@ -14,6 +14,14 @@ class LoungeChannel < ApplicationCable::Channel
     ActionCable.server.broadcast "lounge_channel_#{params['room']}", roomname: data['roomname'], game: data['game']
   end
 
+  # def deleteroom(data)
+  #   # if Room.created_time + 10 < Time.now
+  #     ActionCable.server.broadcast "lounge_channel_#{params['room']}", roomname: data['roomname']
+  #   # else
+
+  #   # end
+  # end
+
   # def leave(data)
   #   User.find(data['userid']).update(roomname: nil)
   #   ActionCable.server.broadcast 'lounge_channel', roomname: data['roomname'], userid: data['userid'], leaving: data['leaving']

@@ -8,6 +8,7 @@ class PicbroadChannel < ApplicationCable::Channel
   end
 
   def reflect(data)
+    
     ActionCable.server.broadcast "picbroad_channel_#{params['room']}", reflecting: data['reflecting']
   end
 end

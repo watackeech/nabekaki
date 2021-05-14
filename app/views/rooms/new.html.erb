@@ -1,9 +1,11 @@
+
 <div id='user_info' data-user_id="<%= @user.id %>" data-user_name="<%= @user.username %>">
 <div id='in_room' class="boo!"></div>
 <%= form_for @room do |f| %>
   <div class="field">
     <%= f.label :room_name %>
     <%= f.text_field :room_name, :size => 70 %>
+    <%= f.hidden_field :created_time, :value => Time.new %>
   </div>
   <%= f.submit "新規ルーム作成！" %>
 <% end %>
