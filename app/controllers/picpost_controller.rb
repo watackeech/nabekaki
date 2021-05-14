@@ -6,7 +6,6 @@ class PicpostController < ApplicationController
         picture = Picture.new(picture_params)
         theString64 = params[:picture][:base64]
         picture.image = base64_conversion(theString64, params[:picture][:time])
-        picture.test = params[:picture][:test]
         picture.room_name = params[:picture][:room_name]
         picture.user_id = params[:picture][:user_id]
         if picture.save
@@ -19,7 +18,7 @@ class PicpostController < ApplicationController
 
     private
         def picture_params
-            params.require(:picture).permit(:image, :user_id, :room_name, :test, :testtext)
+            params.require(:picture).permit(:image, :user_id, :room_name)
         end
 end
 
