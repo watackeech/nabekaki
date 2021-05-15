@@ -4,10 +4,12 @@ class PicpostController < ApplicationController
 
     def create
         picture = Picture.new(picture_params)
-        theString64 = params[:picture][:base64]
-        picture.image = base64_conversion(theString64, params[:picture][:time])
+        theString64 = params[:picture][:image]
+        # picture.image = base64_conversion(theString64, params[:picture][:time])
+        picture.image = base64_conversion(theString64)
         picture.room_name = params[:picture][:room_name]
         picture.user_id = params[:picture][:user_id]
+        picture.picname = params[:picture][:picname]
         if picture.save
             return
         else
@@ -18,7 +20,7 @@ class PicpostController < ApplicationController
 
     private
         def picture_params
-            params.require(:picture).permit(:image, :user_id, :room_name)
+            params.require(:picture).permit(:image, :user_id, :room_name, :picname)
         end
 end
 

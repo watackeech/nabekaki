@@ -8,7 +8,7 @@ class PicbroadChannel < ApplicationCable::Channel
   end
 
   def picreload(data)
-    ActionCable.server.broadcast "picbroad_channel_#{params['room']}", picreload: data['picreload']
+    ActionCable.server.broadcast "picbroad_channel_#{params['room']}", picreloading: data['picreloading']
   end
 
   def turn(data)
@@ -18,6 +18,11 @@ class PicbroadChannel < ApplicationCable::Channel
   end
 
   def finish(data)
+    x = 1
+    Picture.where(room_name: data['roomname']).order(:id).each do |p|
+      p.update(in_room_order: x)
+      x += 1
+    end
     ActionCable.server.broadcast "picbroad_channel_#{params['room']}", finish: data['finish'], roomname: data['roomname']
   end
 end
