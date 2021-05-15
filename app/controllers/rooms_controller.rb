@@ -45,19 +45,28 @@ class RoomsController < ApplicationController
 
   # ajax通信用のアクション
   def ajax
-    render layout: false
     @images = Picture.all
+    render layout: false
   end
 
   def picajax
-    render layout: false
     @room = Room.find_by(room_name: params[:room_name])
     @images = Picture.all
+    render layout: false
+  end
+  def myturnajax
+    @room = Room.find_by(room_name: params[:room_name])
+    render layout: false
+    # render :layout => 'forajax'
   end
   # def showjax
   #   render layout: false
   #   @user = User.find(current_user.id)
   # end
+
+  def results
+    
+  end
 
 
   private

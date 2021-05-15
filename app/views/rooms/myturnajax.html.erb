@@ -1,0 +1,9 @@
+<%# javascript_pack_tag 'picload' %>
+<div class="ajaxReturn">
+    <%# room = Room.where(room_name: params[:room_name])%>
+    <% if @room.current_drawing_number == current_user.randorder %>
+        <p><button id="turn-btn">自分の番！</button></p>
+    <% else %>
+    <p id="set-btn">待機中...</p>
+    <% end %>
+</div>

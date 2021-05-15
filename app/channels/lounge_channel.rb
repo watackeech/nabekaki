@@ -11,6 +11,14 @@ class LoungeChannel < ApplicationCable::Channel
     User.where(roomname: data['roomname']).each do |player|
       player.update(randnum: rand(64))
     end
+    x = 0
+    User.where(roomname: data['roomname']).order(:randnum).each do |bigtetsu|
+      bigtetsu.update(randorder: x)
+      x += 1
+    end
+
+
+
     ActionCable.server.broadcast "lounge_channel_#{params['room']}", roomname: data['roomname'], game: data['game']
   end
 

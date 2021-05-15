@@ -76,7 +76,7 @@ import consumer from "./consumer"
       // console.log('checking!');
       // console.log($("#current_drawer").attr("class"));
       // console.log($('#user_info').data('user_id'));
-      if(String($('#user_info').data('user_id')) === $("#current_drawer").attr("class")){
+      if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
         // console.log('god');
         initEventHandler();
         initConfigOfLineWidth();
@@ -87,13 +87,6 @@ import consumer from "./consumer"
     }
 
     setInterval(authorized, 1000);
-
-
-
-
-    $('#turn-btn').on('click', function() {
-      appRoom.turn($('#user_info').data('user_id'), 0)
-    });
 
 
     const appRoom = consumer.subscriptions.create({channel: 'DrawChannel', room: $('#user_info').data('room_name') }, {
@@ -107,10 +100,10 @@ import consumer from "./consumer"
 
       received(data) {
         // console.log("received!");
-        if(data['flag'] === 0){
-          $("#current_drawer").removeAttr("class");
-          $("#current_drawer").attr({class : String(data['userid'])});
-        }else{
+        // if(data['flag'] === 0){
+        //   $("#current_drawer").removeAttr("class");
+        //   $("#current_drawer").attr({class : String(data['userid'])});
+        // }else{
           if(data['begin']) {
             ctx.beginPath();
           } else if (data['close']){
@@ -124,7 +117,6 @@ import consumer from "./consumer"
                 ctx.lineJoin = ' round';
                 ctx.lineWidth = currentLineWidth;
                 ctx.strokeStyle = currentColor;
-
                 ctx.moveTo(prex, prey);
                 ctx.lineTo(x, y);
                 ctx.stroke();
@@ -140,7 +132,7 @@ import consumer from "./consumer"
             data['prex'],
             data['prey']
           );
-        };
+        // };
       },
 
 
@@ -171,12 +163,12 @@ import consumer from "./consumer"
         });
       },
 
-      turn: function(userid, flag) {
-        return this.perform('turn',  {
-          userid: userid,
-          flag: flag
-        });
-      },
+      // turn: function(userid, flag) {
+      //   return this.perform('turn',  {
+      //     userid: userid,
+      //     flag: flag
+      //   });
+      // },
     });
   });
 // });

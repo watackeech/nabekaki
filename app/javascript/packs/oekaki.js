@@ -14,7 +14,6 @@ window.addEventListener('load', () => {
             ctx.lineJoin = ' round';
             ctx.lineWidth = currentLineWidth;
             ctx.strokeStyle = currentColor;
-
             ctx.moveTo(mouse.x, mouse.y);
             ctx.lineTo(x, y);
 
@@ -84,7 +83,7 @@ window.addEventListener('load', () => {
     // }
 
     function authorized(){
-        if(String($('#user_info').data('user_id')) === $("#current_drawer").attr("class")){
+        if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
             initEventHandler();
             initConfigOfLineWidth();
             console.log("I can draw!");

@@ -1,9 +1,9 @@
 
 <%= javascript_pack_tag 'oekaki' %>
 <%= javascript_pack_tag 'picload' %>
-<div id="current_drawer" class="default" data-randnum="<%= @user.randnum %>"></div>
-<div id='user_info' data-room_name="<%= @room.room_name %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>"></div>
-<div id='current_state' class="playing!"></div>
+<div id="current_draw_number" class="<%= @room.current_drawing_number %>"></div>
+<div id="current_rotation" class="<%= @room.rotation %>"></div>
+<div id='user_info' data-room_name="<%= @room.room_name %>" data-room_id="<%= @room.id %>" data-player_amount="<%= @players.count %>" data-current_rotation="<%= @room.rotation %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>" data-randorder="<%= @user.randorder %>"></div>
 
 <ul id="player-index">
     <% @players.each do |player| %>
@@ -11,7 +11,9 @@
     <% end %>
 </ul>
 
-<p><button id="turn-btn">自分の番！</button></p>
+    <div id="btn-reload">
+
+    </div>
     <canvas
         id="draw-area"
         width="400px"
