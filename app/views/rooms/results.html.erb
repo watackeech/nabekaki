@@ -4,12 +4,22 @@ Finished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 <h1><%= @room.room_name %></h1>
 <h1>最終スコア：<%= (@pictures.sum(:points) / @pictures.count).floor %></h1>
 <h2><%= @room.rand_first_character %> ⇒ </h2>
+
+
+<% @players.each do |p| %>
+        <div class="personal-results">
+            <%= p.username %>の平均スコア：
+            <% userpics = Picture.where(room_name: p.roomname, user_id: p.id) %>
+            <%= (userpics.sum(:points) / userpics.count).floor %>
+        </div>
+<% end %>
 <% @pictures.each do |p| %>
         <div class="image">
             <%= image_tag p.image_url, size: "250x200" if p.image? %>
             <%= p.in_room_order %>
             <%= p.picname %>
             <%= p.points %>
+            <%= User.find(p.user_id).username%>
             <% if p.judge == 1 %>
                 〇⇒
             <% else %>

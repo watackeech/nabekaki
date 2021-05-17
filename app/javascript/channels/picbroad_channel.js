@@ -16,13 +16,6 @@ document.addEventListener("DOMContentLoaded", function(){
     },
 
     received(data) {
-      // console.log(data['current_order']);
-      // console.log(data['turnflag']);
-      // console.log(data['room_id']);
-      // console.log(data['rotation']);
-      // console.log(data['th_turn']);
-      // console.log(data['picname']);
-      // console.log(data['judge']);
       console.log(data['finish']);
       if(data['turnflag'] === 0){
         console.log("received!");
@@ -34,6 +27,25 @@ document.addEventListener("DOMContentLoaded", function(){
         $("#th_turn").attr({class : String(data['th_turn'])});
         $("#last_picname").removeAttr("class");
         $("#last_picname").attr({class : String(data['picname'])});
+        if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+          $("#can_you_draw").removeAttr("class");
+          $("#can_you_draw").attr({class : "yes"})
+        }else{
+          $("#can_you_draw").removeAttr("class");
+          $("#can_you_draw").attr({class : "no"})
+        }
+        // let count = 10
+        // let countDown = setInterval(function(){
+        //   count -= 1
+        //   $("#count-down").text(String(count))
+        //   if(count <= 0) {
+        //     console.log("書き終わり！！");
+        //     // exitEventHandler()
+        //     $("#can_you_draw").removeAttr("class");
+        //     $("#can_you_draw").attr({class : "no"})
+        //     clearInterval(countDown);
+        //   };
+        // },1000);
         function ajaxUpdate(url, element) {
           url = url + '?ver=' + new Date().getTime();
           var ajax = new XMLHttpRequest;
@@ -181,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   function gameMaster(){
     if(Number($('#user_info').data('player_amount')) < 3){ //2人以下で遊ぶ場合
-      if(Number($('#current_rotation').attr("class")) < 3){ //2周以下の処理 ####################必ず直す
+      if(Number($('#current_rotation').attr("class")) < 20){ //2周以下の処理 ####################必ず直す
         ordinal_rotation();
       }else{ //最終周の処理
         last_rotation();
@@ -208,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   function irregularLastLetter(str){
     str = (str==null)?"":str;
-    if(str.match(/^[ぁぃぅぇぉゃゅょっー]*$/)){    //"ー"の後ろの文字は全角スペースです。
+    if(str.match(/^[ぁぃぅぇぉゃゅょっんー]*$/)){    //"ー"の後ろの文字は全角スペースです。
       return true;
     }else{
       return false;
@@ -222,8 +234,36 @@ document.addEventListener("DOMContentLoaded", function(){
       last_character = $('#rand_first_character').attr("class")
     }else{
       if(irregularLastLetter(last_character.slice( -1 ))){
-        console.log("iregular pattern");
-        if(last_character == "ゃ"){
+        // console.log("irregular pattern");
+        last_character = last_character.slice( -1 )
+        if(last_character == "ん"){
+          let length_of_picname = character.length
+          last_picname = character
+          last_character = last_picname.substr(length_of_picname - 2, 1 )
+          if(irregularLastLetter(last_character)){
+            if(last_character == "ゃ"){
+            last_character = "や"
+            }else if(last_character == "ゅ"){
+              last_character = "ゆ"
+            }else if(last_character == "ょ"){
+              last_character = "よ"
+            }else if(last_character == "ー"){
+              let length_of_picname = character.length
+              last_picname = character
+              last_character = last_picname.substr(length_of_picname - 3, 1 )
+            }else if(last_character == "ぁ"){
+              last_character = "あ"
+            }else if(last_character == "ぃ"){
+              last_character = "い"
+            }else if(last_character == "ぅ"){
+              last_character = "う"
+            }else if(last_character == "ぇ"){
+              last_character = "え"
+            }else if(last_character == "ぉ"){
+              last_character = "お"
+            };
+          };
+        }else if(last_character == "ゃ"){
           last_character = "や"
         }else if(last_character == "ゅ"){
           last_character = "ゆ"
@@ -249,10 +289,11 @@ document.addEventListener("DOMContentLoaded", function(){
           last_character = last_picname.substr(length_of_picname - 2, 1 )
         }
       }else{
-        console.log("normal")
+        // console.log("normal")
         last_character = character.slice( -1 )
-        console.log(last_character);
+        // console.log(last_character);
       }
+      console.log("最後の文字は" + last_character);
     }
   };
 
@@ -278,17 +319,35 @@ document.addEventListener("DOMContentLoaded", function(){
       characterData: true
     };
     var observer = new MutationObserver(function(){
+      if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+        $("#can_you_draw").removeAttr("class");
+        $("#can_you_draw").attr({class : "yes"})
+      }else{
+        $("#can_you_draw").removeAttr("class");
+        $("#can_you_draw").attr({class : "no"})
+      }
+      let count = 15
+      let countDown = setInterval(function(){
+        count -= 1
+        $("#count-down").text(String(count))
+        if(count <= 0) {
+          console.log("描き終わり！！");
+          // exitEventHandler()
+          $("#can_you_draw").removeAttr("class");
+          $("#can_you_draw").attr({class : "no"})
+          clearInterval(countDown);
+        }else if(count <= 10){
+            $('#count-down').css('color','red');
+        }
+      },1000);
       $('#turn-btn').on('click', function() {
         if(isHiragana($('#picname_form').val())){
-          lastCharacter($('#picname_form').val())
-          if(last_character == "ん"){
-            alert("「ん」でおわってるよ！");
-          }else{
-            lastCharacter($('#last_picname').attr("class"));
-            makeJudge($('#picname_form').val());
-            if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
-              gameMaster();
-            }
+          lastCharacter($('#last_picname').attr("class"));
+          makeJudge($('#picname_form').val());
+          if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
+            gameMaster();
+            $("#can_you_draw").removeAttr("class");
+            $("#can_you_draw").attr({class : "no"})
           }
         }else{
           alert("ひらがなだけでにゅうりょくしよう！");
@@ -297,17 +356,14 @@ document.addEventListener("DOMContentLoaded", function(){
       $("#picname_form").keydown(function(event) {
         if (event.key === "Enter"){
           if(isHiragana($('#picname_form').val())){
-            lastCharacter($('#picname_form').val())
-            if(last_character == "ん"){
-              alert("「ん」でおわってるよ！");
-            }else{
-              lastCharacter($('#last_picname').attr("class"));
-              makeJudge($('#picname_form').val());
-              if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
-                event.preventDefault();
-                gameMaster();
-              }
-            };
+            lastCharacter($('#last_picname').attr("class"));
+            makeJudge($('#picname_form').val());
+            if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
+              event.preventDefault();
+              gameMaster();
+              $("#can_you_draw").removeAttr("class");
+              $("#can_you_draw").attr({class : "no"})
+            }
           }else{
             alert("ひらがなだけでにゅうりょくしよう！");
           }

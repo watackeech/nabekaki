@@ -1,6 +1,7 @@
 <%# stylesheet_link_tag "show", :media => "all" %>
 <%= javascript_pack_tag 'oekaki' %>
 <%= javascript_pack_tag 'picload' %>
+<div id="can_you_draw" class="no"></div>
 <div id="current_draw_number" class="<%= @room.current_drawing_number %>"></div>
 <div id="current_rotation" class="<%= @room.rotation %>"></div>
 <div id="th_turn" class="<%= @room.th_turn %>"></div>

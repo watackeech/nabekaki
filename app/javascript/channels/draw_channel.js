@@ -76,7 +76,8 @@ import consumer from "./consumer"
       // console.log('checking!');
       // console.log($("#current_drawer").attr("class"));
       // console.log($('#user_info').data('user_id'));
-      if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+      // if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+      if($("#can_you_draw").attr("class") == "yes"){
         // console.log('god');
         initEventHandler();
         initConfigOfLineWidth();

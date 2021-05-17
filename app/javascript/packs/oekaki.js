@@ -83,7 +83,8 @@ window.addEventListener('load', () => {
     // }
 
     function authorized(){
-        if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+        // if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+        if($("#can_you_draw").attr("class") == "yes"){
             initEventHandler();
             initConfigOfLineWidth();
             // console.log("I can draw!");

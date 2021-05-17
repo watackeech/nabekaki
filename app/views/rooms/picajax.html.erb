@@ -3,7 +3,8 @@
         <div class="image">
             <%= image_tag p.image_url, size: "250x200" if p.image? %>
             <%= p.in_room_order %>
-            <%# p.picname %>
+            <%= "●"*p.picname.length %> by
+            <%= User.find(p.user_id).username%>
         </div>
     <% end %>
 </div>

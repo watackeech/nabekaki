@@ -1,6 +1,7 @@
 <%# javascript_pack_tag 'picload' %>
 <div class="ajaxReturn">
     <%# room = Room.where(room_name: params[:room_name])%>
+    <div id="count-down">15</div>
     <% if @room.current_drawing_number == current_user.randorder %>
         <input type="text" id="picname_form">
         <p><button id="turn-btn">完成！</button></p>
