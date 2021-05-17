@@ -1,11 +1,20 @@
 Finished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 <br>
-
+<h1><%= @room.room_name %></h1>
+<h1>最終スコア：<%= (@pictures.sum(:points) / @pictures.count).floor %></h1>
+<h2><%= @room.rand_first_character %> ⇒ </h2>
 <% @pictures.each do |p| %>
         <div class="image">
             <%= image_tag p.image_url, size: "250x200" if p.image? %>
             <%= p.in_room_order %>
             <%= p.picname %>
+            <%= p.points %>
+            <% if p.judge == 1 %>
+                〇⇒
+            <% else %>
+                ×⇒
+            <% end %>
         </div>
 <% end %>
+<h2> ⇒ <%= @room.rand_last_character %></h2>

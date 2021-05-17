@@ -86,7 +86,7 @@ window.addEventListener('load', () => {
         if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
             initEventHandler();
             initConfigOfLineWidth();
-            console.log("I can draw!");
+            // console.log("I can draw!");
         }else{
             exitEventHandler();
             exitConfigOfLineWidth();

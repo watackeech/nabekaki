@@ -66,6 +66,7 @@ class RoomsController < ApplicationController
 
   def results
     @pictures = Picture.where(room_name: params[:room_name]).order(:id)
+    @room = Room.find_by(room_name: params[:room_name])
   end
 
 

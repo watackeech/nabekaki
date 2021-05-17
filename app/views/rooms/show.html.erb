@@ -1,10 +1,16 @@
-
+<%# stylesheet_link_tag "show", :media => "all" %>
 <%= javascript_pack_tag 'oekaki' %>
 <%= javascript_pack_tag 'picload' %>
 <div id="current_draw_number" class="<%= @room.current_drawing_number %>"></div>
 <div id="current_rotation" class="<%= @room.rotation %>"></div>
+<div id="th_turn" class="<%= @room.th_turn %>"></div>
+<div id="last_picname" class="<%= @room.last_picname %>"></div>
+<div id="rand_first_character" class="<%= @room.rand_first_character %>"></div>
+<div id="rand_last_character" class="<%= @room.rand_last_character %>"></div>
 <div id='user_info' data-room_name="<%= @room.room_name %>" data-room_id="<%= @room.id %>" data-player_amount="<%= @players.count %>" data-current_rotation="<%= @room.rotation %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>" data-randorder="<%= @user.randorder %>"></div>
 
+
+<h1><%= @room.rand_first_character %> ⇒ <%= @room.rand_last_character %></h1>
 <ul id="player-index">
     <% @players.each do |player| %>
         <li class=<%= player.id %>><%= player.username %></li>
@@ -24,20 +30,6 @@
     </div>
 
 </div>
-
-<%= form_for @picture, :url => { :controller => :picpost, :action => :create }  do |f| %>
-    <div class="field">
-        <%# f.label :image %>
-        <%# f.hidden_field :image, :value => '' %>
-        <%# f.file_field :image %>
-        <%# f.hidden_field :user_id, :value => current_user.id %>
-        <%# f.hidden_field :room_name, :value => '' %>
-        <%# @room.room_name %>
-    </div>
-    <button type="button" id="picpost-btn">保存</button>
-        <%# f.submit "Tweetする" %>
-<% end %>
-
 
 <div id="picreload">
         <%# <h1>Ajax更新エリア</h1> =%>

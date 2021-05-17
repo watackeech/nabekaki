@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_15_130931) do
+ActiveRecord::Schema.define(version: 2021_05_16_091235) do
 
   create_table "pictures", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 2021_05_15_130931) do
     t.string "room_name"
     t.integer "in_room_order"
     t.string "picname"
+    t.integer "length"
+    t.integer "judge"
+    t.integer "points"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -30,6 +33,10 @@ ActiveRecord::Schema.define(version: 2021_05_15_130931) do
     t.time "created_time"
     t.integer "current_drawing_number", default: 0
     t.integer "rotation", default: 1
+    t.integer "th_turn", default: 1
+    t.string "last_picname"
+    t.string "rand_first_character", default: "り"
+    t.string "rand_last_character", default: "ち"
   end
 
   create_table "users", force: :cascade do |t|

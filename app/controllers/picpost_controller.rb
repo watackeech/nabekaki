@@ -10,17 +10,16 @@ class PicpostController < ApplicationController
         picture.room_name = params[:picture][:room_name]
         picture.user_id = params[:picture][:user_id]
         picture.picname = params[:picture][:picname]
-        if picture.save
-            return
-        else
-            # エラー文追加したい
-            return
-        end
+        picture.in_room_order = params[:picture][:in_room_order]
+        picture.length = params[:picture][:length]
+        picture.judge = params[:picture][:judge]
+        picture.points = params[:picture][:points]
+        picture.save
     end
 
     private
         def picture_params
-            params.require(:picture).permit(:image, :user_id, :room_name, :picname)
+            params.require(:picture).permit(:image, :user_id, :room_name, :picname, :in_room_order, :length, :judge, :points)
         end
 end
 

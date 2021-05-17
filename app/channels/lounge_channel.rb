@@ -8,6 +8,8 @@ class LoungeChannel < ApplicationCable::Channel
   end
 
   def start(data)
+    Room.where(room_name: data['roomname']).update(rand_first_character: data['rand_first_character'])
+    Room.where(room_name: data['roomname']).update(rand_last_character: data['rand_last_character'])
     User.where(roomname: data['roomname']).each do |player|
       player.update(randnum: rand(64))
     end
@@ -19,7 +21,7 @@ class LoungeChannel < ApplicationCable::Channel
 
 
 
-    ActionCable.server.broadcast "lounge_channel_#{params['room']}", roomname: data['roomname'], game: data['game']
+    ActionCable.server.broadcast "lounge_channel_#{params['room']}", roomname: data['roomname'], game: data['game'], rand_first_character: data['rand_first_character']
   end
 
   # def deleteroom(data)

@@ -16,12 +16,24 @@ document.addEventListener("DOMContentLoaded", function(){
     },
 
     received(data) {
+      // console.log(data['current_order']);
+      // console.log(data['turnflag']);
+      // console.log(data['room_id']);
+      // console.log(data['rotation']);
+      // console.log(data['th_turn']);
+      // console.log(data['picname']);
+      // console.log(data['judge']);
+      console.log(data['finish']);
       if(data['turnflag'] === 0){
         console.log("received!");
         $("#current_draw_number").removeAttr("class");
         $("#current_draw_number").attr({class : String(data['current_order'])});
         $("#current_rotation").removeAttr("class");
         $("#current_rotation").attr({class : String(data['rotation'])});
+        $("#th_turn").removeAttr("class");
+        $("#th_turn").attr({class : String(data['th_turn'])});
+        $("#last_picname").removeAttr("class");
+        $("#last_picname").attr({class : String(data['picname'])});
         function ajaxUpdate(url, element) {
           url = url + '?ver=' + new Date().getTime();
           var ajax = new XMLHttpRequest;
@@ -45,8 +57,10 @@ document.addEventListener("DOMContentLoaded", function(){
         window.setTimeout(broadcast, 3000);
         console.log("pic rendered!");
       }else if(data['finish'] === 0){
+        console.log("game has finished!!!");
         function toResult(){
           window.location.pathname = "rooms/" + data['roomname'] + "/results"
+          // console.log("movecancel");
         };
         window.setTimeout(toResult, 500);
       }
@@ -57,38 +71,58 @@ document.addEventListener("DOMContentLoaded", function(){
     //     picreloading: picreloading
     //   });
     // },
-    turn: function(current_order, turnflag, room_id, rotation) {
+    turn: function(current_order, turnflag, room_id, rotation, th_turn, picname, judge) {
       return this.perform('turn',  {
         current_order: current_order,
         turnflag: turnflag,
         room_id: room_id,
-        rotation: rotation
+        rotation: rotation,
+        th_turn: th_turn,
+        picname: picname,
+        judge: judge
       });
     },
 
-    finish: function(finish, roomname) {
+    finish: function(finish, roomname, prejudge, lastjudge, length, th_turn, room_id) {
       return this.perform('finish',  {
         finish: finish,
-        roomname: roomname
+        roomname: roomname,
+        prejudge: prejudge,
+        lastjudge: lastjudge,
+        length: length,
+        th_turn: th_turn,
+        room_id: room_id
       });
     }
   });
 
   let next_order = 0
   let rotation = Number($('#current_rotation').attr("class"))
+  let th_turn = Number($('#th_turn').attr("class"))
+  let last_picname = $('#last_picname').attr("class")
+  let last_character = last_picname.slice( -1 )
+  let judge = 0
+  let points = 0
 
 
   function postPicture(){
     // const canvas = document.querySelector('#draw-area');
     let rawdata = canvas.toDataURL();
-    let picname = "picnametest"
+    // let picname = $('#picname_form').val()
     $.ajax({
         type: 'post',
         url: '/picpost',
-        data: {picture: {image: rawdata, room_name: $('#user_info').data('room_name'), user_id: $('#user_info').data('user_id'), picname: picname}},
-        success: function(data){
-          // $("#delete_button").click();
-        }
+        data: {picture: {image: rawdata,
+          room_name: $('#user_info').data('room_name'),
+          user_id: $('#user_info').data('user_id'),
+          picname: $('#picname_form').val(),
+          length: $('#picname_form').val().length,
+          judge: judge,
+          points: points,
+          in_room_order: Number($('#th_turn').attr("class"))}},
+        // success: function(data){
+        //   // $("#delete_button").click();
+        // }
     });
   }
   function ordinal_rotation(){
@@ -101,26 +135,140 @@ document.addEventListener("DOMContentLoaded", function(){
     }
     $('#turn-btn').text('送信中!...');
     postPicture();
-    appPicpost.turn(next_order, 0, $('#user_info').data('room_id'), rotation);
+    th_turn = Number($('#th_turn').attr("class")) + 1
+    appPicpost.turn(next_order, 0, $('#user_info').data('room_id'), rotation, th_turn, $('#picname_form').val(), judge);
   };
 
   function last_rotation(){
     if (Number($('#user_info').data('randorder')) + 1 === Number($('#user_info').data('player_amount'))){
       console.log("finish!!!");
+      let prejudge = judge
+      lastCharacter($('#picname_form').val());
+      makeJudge($('#rand_last_character').attr("class"));
+      let lastjudge = judge
+      let current_length = $('#picname_form').val().length
+      // console.log(prejudge);
+      // console.log(lastjudge);
+      let points1 = 0;
+      let points2 = 0;
+      if (prejudge == 1){
+        points1 = (current_length**2)*2
+      }else{
+        points1 = Math.floor((current_length**2)/2)
+      }
+      if (lastjudge == 1){
+        points2 = (current_length**2)*2
+      }else{
+        points2 = Math.floor((current_length**2)/2)
+      }
+      points = points1 + points2
+      // console.log(points);
       postPicture();
       $('#turn-btn').text('ゲーム終了!...');
       function finishgame(){
-        appPicpost.finish(0, $('#user_info').data('room_name'));
+        appPicpost.finish(0, $('#user_info').data('room_name'), prejudge, lastjudge, $('#picname_form').val().length, Number($('#th_turn').attr("class")), $('#user_info').data('room_id'));
       }
       window.setTimeout(finishgame, 3000);
     }else{
-      next_order = Number($('#user_info').data('randorder')) + 1
-      rotation = Number($('#current_rotation').attr("class"))
+      next_order = Number($('#user_info').data('randorder')) + 1;
+      rotation = Number($('#current_rotation').attr("class"));
+      th_turn = Number($('#th_turn').attr("class")) + 1;
       $('#turn-btn').text('送信中!...');
       postPicture();
-      appPicpost.turn(next_order, 0, $('#user_info').data('room_id'), rotation);
+      appPicpost.turn(next_order, 0, $('#user_info').data('room_id'), rotation, th_turn, $('#picname_form').val(), judge);
     }
   };
+
+  function gameMaster(){
+    if(Number($('#user_info').data('player_amount')) < 3){ //2人以下で遊ぶ場合
+      if(Number($('#current_rotation').attr("class")) < 3){ //2周以下の処理 ####################必ず直す
+        ordinal_rotation();
+      }else{ //最終周の処理
+        last_rotation();
+      };
+    }else if (Number($('#user_info').data('player_amount')) < 5){ //3人以上4人以下で遊ぶ場合
+      if(Number($('#current_rotation').attr("class")) < 2){//1周目の処理
+        ordinal_rotation
+      }else{//2周目(最終周)の処理
+        last_rotation();
+      };
+    }else{ //5人以上で遊ぶ場合
+      last_rotation();
+    };
+  };
+
+  function isHiragana(str){
+    str = (str==null)?"":str;
+    if(str.match(/^[ぁ-んー・]*$/)){    //"ー"の後ろの文字は全角スペースです。
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  function irregularLastLetter(str){
+    str = (str==null)?"":str;
+    if(str.match(/^[ぁぃぅぇぉゃゅょっー]*$/)){    //"ー"の後ろの文字は全角スペースです。
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  function lastCharacter(character){
+    last_character = character;
+    if(Number($('#th_turn').attr("class")) == 1){
+      console.log("this is first turn");
+      last_character = $('#rand_first_character').attr("class")
+    }else{
+      if(irregularLastLetter(last_character.slice( -1 ))){
+        console.log("iregular pattern");
+        if(last_character == "ゃ"){
+          last_character = "や"
+        }else if(last_character == "ゅ"){
+          last_character = "ゆ"
+        }else if(last_character == "ょ"){
+          last_character = "よ"
+        }else if(last_character == "ー"){
+          let length_of_picname = character.length
+          last_picname = character
+          last_character = last_picname.substr(length_of_picname - 2, 1 )
+        }else if(last_character == "ぁ"){
+          last_character = "あ"
+        }else if(last_character == "ぃ"){
+          last_character = "い"
+        }else if(last_character == "ぅ"){
+          last_character = "う"
+        }else if(last_character == "ぇ"){
+          last_character = "え"
+        }else if(last_character == "ぉ"){
+          last_character = "お"
+        }else if(last_character == "っ"){
+          let length_of_picname = character.length
+          last_picname = character
+          last_character = last_picname.substr(length_of_picname - 2, 1 )
+        }
+      }else{
+        console.log("normal")
+        last_character = character.slice( -1 )
+        console.log(last_character);
+      }
+    }
+  };
+
+  function makeJudge(word){
+    if(word.slice(0, 1) == last_character){
+      judge = 1
+      console.log("you got right!!");
+      points = ($('#picname_form').val().length ** 2) * 2
+      console.log(points);
+    }else{
+      judge = 0
+      console.log("booooo");
+      points = Math.floor(($('#picname_form').val().length ** 2) / 2)
+      console.log(points);
+    }
+  }
 
   window.onload = function() {
     const elem = document.getElementById('btn-reload');
@@ -130,61 +278,44 @@ document.addEventListener("DOMContentLoaded", function(){
       characterData: true
     };
     var observer = new MutationObserver(function(){
-      console.log(rotation);
       $('#turn-btn').on('click', function() {
-        if(Number($('#user_info').data('player_amount')) < 3){ //2人以下で遊ぶ場合
-          if(Number($('#current_rotation').attr("class")) < 3){ //二周以下の処理
-            ordinal_rotation();
-          }else{ //最終周の処理
-            last_rotation();
-          };
-        }else if (Number($('#user_info').data('player_amount')) < 5){ //3人以上4人以下で遊ぶ場合
-          if(Number($('#current_rotation').attr("class")) < 2){//1周目の処理
-            ordinal_rotation
-          }else{//2周目(最終周)の処理
-            last_rotation();
-          };
-        }else{ //5人以上で遊ぶ場合
-          last_rotation();
+        if(isHiragana($('#picname_form').val())){
+          lastCharacter($('#picname_form').val())
+          if(last_character == "ん"){
+            alert("「ん」でおわってるよ！");
+          }else{
+            lastCharacter($('#last_picname').attr("class"));
+            makeJudge($('#picname_form').val());
+            if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
+              gameMaster();
+            }
+          }
+        }else{
+          alert("ひらがなだけでにゅうりょくしよう！");
+        }
+      });
+      $("#picname_form").keydown(function(event) {
+        if (event.key === "Enter"){
+          if(isHiragana($('#picname_form').val())){
+            lastCharacter($('#picname_form').val())
+            if(last_character == "ん"){
+              alert("「ん」でおわってるよ！");
+            }else{
+              lastCharacter($('#last_picname').attr("class"));
+              makeJudge($('#picname_form').val());
+              if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
+                event.preventDefault();
+                gameMaster();
+              }
+            };
+          }else{
+            alert("ひらがなだけでにゅうりょくしよう！");
+          }
         };
-        console.log(rotation);
       });
       console.log('DOMが変化しました');
     });
     observer.observe(elem, config);
-    // $('#picpost-btn').on('click', function() {
-    //   // document.getElementById('picpost-btn').textContent = '送信中...';
-    //   // この辺のidはhtml確認
-    //   const canvas = document.querySelector('#draw-area');
-    //   let rawdata = canvas.toDataURL();
-    //   $.ajax({
-    //       type: 'post',
-    //       url: '/picpost',
-    //       data: {picture: {image: rawdata, room_name: $('#user_info').data('room_name'), user_id: $('#user_info').data('user_id'), picname: picname}},
-    //       success: function(data){
-    //         // $("#delete_button").click();
-    //       }
-    //   });
-    //   // function broadreflect() {
-    //   appPicpost.picreload(0);
-    //   console.log("sending now");
-    //   // };
-    //   // window.setTimeout(broadreflect, 1000);
-    // });
-    // function postPicture(){
-    //   // const canvas = document.querySelector('#draw-area');
-    //   let rawdata = canvas.toDataURL();
-    //   let picname = "picnametest"
-    //   $.ajax({
-    //       type: 'post',
-    //       url: '/picpost',
-    //       data: {picture: {image: rawdata, room_name: $('#user_info').data('room_name'), user_id: $('#user_info').data('user_id'), picname: picname}},
-    //       success: function(data){
-    //         // $("#delete_button").click();
-    //       }
-    //   });
-    // }
   };
 
 });
-// });

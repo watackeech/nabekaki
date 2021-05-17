@@ -1,7 +1,9 @@
 <div class="ajaxReturn">
-    <% Picture.where(room_name: params[:room_name]).each do |t| %>
+    <% Picture.where(room_name: params[:room_name]).each do |p| %>
         <div class="image">
-            <%= image_tag t.image_url, size: "250x200" if t.image? %>
+            <%= image_tag p.image_url, size: "250x200" if p.image? %>
+            <%= p.in_room_order %>
+            <%= p.picname %>
         </div>
     <% end %>
 </div>

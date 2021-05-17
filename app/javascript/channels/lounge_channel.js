@@ -10,14 +10,19 @@ const appLounge = consumer.subscriptions.create({channel: 'LoungeChannel', room:
   },
 
   received(data) {
-    console.log("received!!!!");
+    console.log("Game Start!");
     if(data['game'] === 0 && $('#room_info').data('room_name') === data['roomname']){
       window.location.pathname = "rooms/" + data['roomname']
     }
   },
 
-  start: function(roomname, game) {
-    return this.perform('start', {roomname: roomname, game: game});
+  start: function(roomname, game, rand_first_character, rand_last_character) {
+    return this.perform('start', {
+      roomname: roomname,
+      game: game,
+      rand_first_character: rand_first_character,
+      rand_last_character: rand_last_character
+    });
   },
 
   // deleteroom: function(roomname) {
@@ -26,7 +31,10 @@ const appLounge = consumer.subscriptions.create({channel: 'LoungeChannel', room:
 });
 
 window.addEventListener('load', function () {
+  let characters = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわがぎぐげござじずぜぞだづでどばびぶべぼぱぴぷぺぽきいち"
+  let initial_rand = Math.floor( Math.random() * (70) );
+  let final_rand = Math.floor( Math.random() * (70) );
   $('#start-btn').on('click', function() {
-    appLounge.start($('#room_info').data('room_name'), 0)
+    appLounge.start($('#room_info').data('room_name'), 0, characters.substr(initial_rand, 1), characters.substr(final_rand, 1))
   });
 });
