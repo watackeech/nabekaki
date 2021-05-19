@@ -20,8 +20,8 @@ const appEntrance = consumer.subscriptions.create("EntranceChannel", {
       };
       ajax.send(null);
     }
-    var url = "ajax.html.erb";
-    var div = document.getElementById('ajaxreload');
+    var url = "loungeajax.html.erb";
+    var div = document.getElementById('lounge-ajaxreload');
     function broadcast() {
         ajaxUpdate(url, div);
     };

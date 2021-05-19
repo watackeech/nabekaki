@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #F9F3DE;
+}
+
+header{
+    width: 100%;
+    height: 5.5vw;
+    background: #2ECFCA;
+    display: flex;
+    align-items: center;
+}
+
+#header-info{
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 1vw;
+}
+
+#header-title{
+    font-family: Roboto;
+    vertical-align: middle;
+    font-style: normal;
+    font-weight: bold;
+    margin-left: 1vw;
+    font-size: 3vw;
+    color: #F9F3DE;
+}
+
+
+#header-info{
+    position: absolute;
+    right: 13px;
+}
+
+.boxes{
+    position: relative;
+    background-size: contain;
+    width: 100%;
+    margin-top: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#shiritori-box h1{
+    position: absolute;
+    font-size: 3.5vw;
+    left: 34%;
+}
+
+#bucket{
+    margin-left: 13%;
+}
+
+#roller{
+    margin-right: 14%;
+}
+
+#rocket{
+    position: absolute;
+    margin-left: 70%;
+    margin-bottom: 20%;
+    transform: rotate(60deg);
+}
+
+#UFO{
+    position: absolute;
+    margin-left: 70%;
+    margin-top: 20%;
+    transform: rotate(20deg);
+}
+
+#rice{
+    position: absolute;
+    margin-left: 77%;
+    margin-top: 10%;
+    transform: rotate(22deg);
+}
+
+#pig{
+    position: absolute;
+    margin-right: 75%;
+    transform: rotate(190deg);
+}
+
+#raccoon{
+    position: absolute;
+    margin-right: 79%;
+    margin-top: 28%;
+}
+
+#drop-down{
+    position: absolute;
+    margin-right: 60%;
+    margin-bottom: 30%;
+    transform: rotate(-40deg);
+}
+
+.box-title{
+    position: absolute;
+    font-size: 2.8vw;
+    left: 32%;
+    top: 24%;
+    border-bottom: solid;
+    border-color: #FF4E62;
+    border-width: 1vw;
+    padding-bottom: 0;
+    line-height: 0.4;
+}
+
+.box-passage{
+    position: absolute;
+    font-size: 1.9vw;
+    left: 32.5%;
+    top: 38%;
+}
+
+.tips-passage{
+    top: 34%;
+}
+#tips-passage1{
+    left: 31%;
+    margin-top: 1%;
+}
+#tips-passage2{
+    left: 31%;
+    margin-top: 10.5%;
+}
+
+
+h2.btn--orange {
+color: #fff;
+background-color: #eb6100;
+border-bottom: 5px solid #b84c00;
+}
+h2.btn--orange:hover {
+margin-top: 3px;
+color: #fff;
+background: #f56500;
+border-bottom: 2px solid #b84c00;
+}
+h2.btn--shadow {
+-webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+.btn{
+    width: 15%;
+    height: 13%;
+    text-align: center;
+}
+
+.btn-text{
+    vertical-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#btn1{
+    margin-top: 0%;
+    margin-left: 2%;
+}
+#btn2{
+    margin-top: 0%;
+    margin-left: 20%;
+}
+#btn3{
+    margin-top: 10%;
+    margin-left: 11%;
+}

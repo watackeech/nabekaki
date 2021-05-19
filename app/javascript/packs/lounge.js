@@ -1,34 +1,36 @@
-function ajaxUpdate(url, element) {
 
-    // urlを加工し、キャッシュされないurlにする。
-    url = url + '?ver=' + new Date().getTime();
+document.addEventListener("DOMContentLoaded", function(){
+    window.addEventListener('load', function () {
+    console.log("loading");
+    function ajaxUpdate(url, element) {
 
-    // ajaxオブジェクト生成
-    var ajax = new XMLHttpRequest;
+        // urlを加工し、キャッシュされないurlにする。
+        url = url + '?ver=' + new Date().getTime();
 
-    // ajax通信open
-    ajax.open('GET', url, true);
+        // ajaxオブジェクト生成
+        var ajax = new XMLHttpRequest;
 
-    // ajax返信時の処理
-    ajax.onload = function () {
+        // ajax通信open
+        ajax.open('GET', url, true);
 
-        // ajax返信から得たHTMLでDOM要素を更新
-        element.innerHTML = ajax.responseText;
-    };
+        // ajax返信時の処理
+        ajax.onload = function () {
 
-    // ajax開始
-    ajax.send(null);
-}
+            // ajax返信から得たHTMLでDOM要素を更新
+            element.innerHTML = ajax.responseText;
+        };
 
-window.addEventListener('load', function () {
+        // ajax開始
+        ajax.send(null);
+    }
+    var url ="loungeajax.html.erb";
 
-    var url = "ajax.html.erb";
-
-    var div = document.getElementById('ajaxreload');
+    var div = document.getElementById('lounge-ajaxreload');
 
     function selfload() {
         ajaxUpdate(url, div);
     };
     selfload();
 
+    });
 });

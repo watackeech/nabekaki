@@ -34,18 +34,6 @@ document.addEventListener("DOMContentLoaded", function(){
           $("#can_you_draw").removeAttr("class");
           $("#can_you_draw").attr({class : "no"})
         }
-        // let count = 10
-        // let countDown = setInterval(function(){
-        //   count -= 1
-        //   $("#count-down").text(String(count))
-        //   if(count <= 0) {
-        //     console.log("書き終わり！！");
-        //     // exitEventHandler()
-        //     $("#can_you_draw").removeAttr("class");
-        //     $("#can_you_draw").attr({class : "no"})
-        //     clearInterval(countDown);
-        //   };
-        // },1000);
         function ajaxUpdate(url, element) {
           url = url + '?ver=' + new Date().getTime();
           var ajax = new XMLHttpRequest;
@@ -62,9 +50,6 @@ document.addEventListener("DOMContentLoaded", function(){
         function broadcast() {
         　ajaxUpdate(url, div);
           ajaxUpdate(url_for_pic, div_for_pic);
-          const canvas = document.querySelector('#draw-area');
-          const ctx = canvas.getContext('2d');
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
         };
         window.setTimeout(broadcast, 3000);
         console.log("pic rendered!");
@@ -115,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function(){
   let last_character = last_picname.slice( -1 )
   let judge = 0
   let points = 0
-
 
   function postPicture(){
     // const canvas = document.querySelector('#draw-area');
@@ -193,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   function gameMaster(){
     if(Number($('#user_info').data('player_amount')) < 3){ //2人以下で遊ぶ場合
-      if(Number($('#current_rotation').attr("class")) < 20){ //2周以下の処理 ####################必ず直す
+      if(Number($('#current_rotation').attr("class")) < 10){ //2周以下の処理 ####################必ず直す
         ordinal_rotation();
       }else{ //最終周の処理
         last_rotation();
@@ -319,6 +303,10 @@ document.addEventListener("DOMContentLoaded", function(){
       characterData: true
     };
     var observer = new MutationObserver(function(){
+      const canvas = document.querySelector('#draw-area');
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0,0,canvas.width, canvas.height);
       if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
         $("#can_you_draw").removeAttr("class");
         $("#can_you_draw").attr({class : "yes"})
@@ -351,7 +339,11 @@ document.addEventListener("DOMContentLoaded", function(){
           }
         }else{
           alert("ひらがなだけでにゅうりょくしよう！");
+          $("#wordcount").text(String($('#picname_form').val().length) + "文字")
         }
+      });
+      $("#picname_form").keyup(function(event) {
+        $("#wordcount").text(String($('#picname_form').val().length) + "文字")
       });
       $("#picname_form").keydown(function(event) {
         if (event.key === "Enter"){
@@ -366,6 +358,7 @@ document.addEventListener("DOMContentLoaded", function(){
             }
           }else{
             alert("ひらがなだけでにゅうりょくしよう！");
+            $("#wordcount").text(String($('#picname_form').val().length) + "文字")
           }
         };
       });

@@ -35,13 +35,29 @@ import consumer from "./consumer"
       mouse.x = null;
       mouse.y = null;
     };
+    function eraser(){
+      currentColor = "white"
+    };
+    function black(){
+        currentColor = "black"
+    };
+    function yellow(){
+        currentColor = "#f8df77"
+    };
     function initEventHandler() {
-        canvas.addEventListener('mousedown', dragStart);
-        canvas.addEventListener('mouseup', dragEnd);
-        canvas.addEventListener('mouseout', dragEnd);
-        canvas.addEventListener('mousemove', event => {
-            draw(event.layerX, event.layerY, currentLineWidth, currentColor, isDrag);
-        });
+      const eraserButton = document.querySelector('#eraser');
+      const blackButton = document.querySelector('#black');
+      const yellowButton = document.querySelector('#yellow');
+
+      eraserButton.addEventListener('click', eraser);
+      blackButton.addEventListener('click', black);
+      yellowButton.addEventListener('click', yellow);
+      canvas.addEventListener('mousedown', dragStart);
+      canvas.addEventListener('mouseup', dragEnd);
+      canvas.addEventListener('mouseout', dragEnd);
+      canvas.addEventListener('mousemove', event => {
+          draw(event.layerX, event.layerY, currentLineWidth, currentColor, isDrag);
+      });
     };
     function initConfigOfLineWidth() {
       const widthNum = document.querySelector('#width-num');
@@ -82,8 +98,10 @@ import consumer from "./consumer"
         initEventHandler();
         initConfigOfLineWidth();
       }else{
+
         exitEventHandler();
         exitConfigOfLineWidth();
+        // dragEnd();
       };
     }
 
@@ -123,16 +141,16 @@ import consumer from "./consumer"
                 ctx.stroke();
             }
           };
-          remoteDraw(
-            data['currentX'],
-            data['currentY'],
-            data['width'],
-            data['color'],
-            data['isDrag'],
-            data['lastTime'],
-            data['prex'],
-            data['prey']
-          );
+          // remoteDraw(
+          //   data['currentX'],
+          //   data['currentY'],
+          //   data['width'],
+          //   data['color'],
+          //   data['isDrag'],
+          //   data['lastTime'],
+          //   data['prex'],
+          //   data['prey']
+          // );
         // };
       },
 

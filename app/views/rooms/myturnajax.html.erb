@@ -3,8 +3,13 @@
     <%# room = Room.where(room_name: params[:room_name])%>
     <div id="count-down">15</div>
     <% if @room.current_drawing_number == current_user.randorder %>
-        <input type="text" id="picname_form">
+        <input type="text" id="picname_form"><span id="wordcount">0文字</span>
         <p><button id="turn-btn">完成！</button></p>
+        <button id="eraser">消しゴム</button>
+        <button id="black">黒</button>
+        <button id="yellow">黄色</button>
+        <button id="blue">黄色</button>
+        <button id="red">黄色</button>
     <% else %>
     <p id="set-btn">待機中...</p>
     <% end %>

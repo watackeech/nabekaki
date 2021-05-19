@@ -10,24 +10,25 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <header>
-    <nav>
-        <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
-        <% if user_signed_in? %>
-          <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
-          <!-- *_path はUserモデルを作成したときに、
-          deviseにより自動で作成されてますので、rake routesで確認できます -->
-          Logged in as <strong><%= current_user.username %></strong>
-          <%= link_to 'トップ', root_path %> |
-          <%= link_to 'プロフィール変更', edit_user_registration_path %> |
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> |
-          <%= link_to 'ルーム参加', rooms_join_path %>
-        <% else %>
-          <%= link_to 'トップ', root_path %> |
-          <%= link_to "サインイン", new_user_registration_path %> |
-          <%= link_to "ログイン", new_user_session_path %> |
-          <%= link_to 'ルーム参加', rooms_join_path %>
-        <% end %>
-      </nav>
+    <div id="header-title">なべかき！</div>
+    <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
+    <div id="header-info">
+      <% if user_signed_in? %>
+        <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
+        <!-- *_path はUserモデルを作成したときに、
+        deviseにより自動で作成されてますので、rake routesで確認できます -->
+        Logged in as <strong><%= current_user.username %></strong>
+        <%= link_to 'トップ', root_path %> |
+        <%= link_to 'プロフィール変更', edit_user_registration_path %> |
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> |
+        <%= link_to 'ルーム参加', rooms_join_path %>
+      <% else %>
+        <%= link_to 'トップ', root_path %> |
+        <%= link_to "サインイン", new_user_registration_path %> |
+        <%= link_to "ログイン", new_user_session_path %> |
+        <%= link_to 'ルーム参加', rooms_join_path %>
+      <% end %>
+    </div>
   </header>
 
   <body>

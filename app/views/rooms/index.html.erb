@@ -1,7 +1,50 @@
 
-<div id='in_room' class="boo!"></div>
+<div class="boxes" id="shiritori-box">
+    <%= image_tag 'HDtopshiritori', id: "assets", width: "80%", height: "auto" %>
+    <h1 id="omoikiri">思いっきり、描こう。</h1>
+</div>
+
+<div class="boxes" id="enjoy-box">
+    <%= image_tag 'bucket', id: "bucket", width: "60%", height: "auto" %>
+    <%= image_tag 'pig', id: "pig", width: "10%", height: "auto" %>
+    <%= image_tag 'raccoon', id: "raccoon", width: "9%", height: "auto" %>
+    <%= image_tag 'drop-down', id: "drop-down", width: "17%", height: "auto" %>
+    <%= image_tag 'rice', id: "rice", width: "10%", height: "auto" %>
+    <h1 class="box-title" id="enjoy-title">「おえかき」を楽しもう！</h1>
+    <p class="box-passage" id="enjoy-passage">
+    「なべかき！」は、友達とオンラインで
+    <br>&ensp;絵しりとりを楽しめるアプリ！
+    <br>&ensp;協力してハイスコアを目指す？
+    <br>&ensp;MVPをめざして競争する？
+    <br>&ensp;自分なりの楽しみ方を探しに行こう！</p>
+</div>
+
+<div class="boxes" id="tips-box">
+    <%= image_tag 'roller', id: "roller", width: "70%", height: "auto" %>
+    <%= image_tag 'rocket', id: "rocket", width: "40%", height: "auto" %>
+    <%= image_tag 'UFO', id: "UFO", width: "10%", height: "auto" %>
+    <h1 id="tips-title" class="box-title">絵しりとりの心得</h1>
+    <p class="box-passage tips-passage" id="tips-passage1">
+    １.文字数を稼ごう！
+    <br>&ensp; 「なべかき！」では文字数がスコアに直結する！
+    <br>&emsp; 積極的に難しい言葉にチャレンジしよう！</p>
+    <p class="box-passage tips-passage" id="tips-passage2">
+    ２.自分の"味"を見つけよう！
+    <br>&emsp; おえかきに正解はない！
+    <br>&emsp; 自分の描く絵を好きになるところから始めよう！</p>
+</div>
+
+<div class="boxes" id="lets-start-box">
+    <%= image_tag 'brush', id: "brush", width: "70%", height: "auto" %>
+    <h1 id="tips-title" class="box-title">さっそく始めよう！</h1>
+    <h2 class="box-passage btn btn--orange btn--cubic btn--shadow" id="btn1"><div class="btn-text">ルーム作成</div></h2>
+    <h2 class="box-passage btn btn--orange btn--cubic btn--shadow" id="btn2"><div class="btn-text">ルーム作成</div></h2>
+    <h2 class="box-passage btn btn--orange btn--cubic btn--shadow" id="btn3"><div class="btn-text">ルーム作成</div></h2>
+</div>
+
+
+
+
 <%= link_to "新規ルーム作成！", rooms_new_path %>
-<br>
 <%= link_to "ルーム参加！", rooms_join_path %>
-<div id='user_info' data-user_id="<%= @user.id %>" data-user_name="<%= @user.username %>">
-<h1>Topぺーじだよ！</h1>
+<div id='user_info' data-user_id="<%# @user.id %>" data-user_name="<%# @user.username %>">

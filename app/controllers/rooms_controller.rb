@@ -1,9 +1,9 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
 
   def index
-    require "active_support/time"
-    @user = User.find(current_user.id)
+    # require "active_support/time"
+    # @user = User.find(current_user.id)
     # room = Room.where("created_time > ?", Time.new - 10)
     # Picture.where(room_name: room).delete_all
     # room.delete_all
@@ -16,10 +16,11 @@ class RoomsController < ApplicationController
 
   def create
     room = Room.new(room_params)
+    User.find(current_user.id).update(roomname: params[:room][:room_name])
     room.user_id = current_user.id
     room.created_time = Time.new
     if room.save
-      redirect_to :action => "join"
+      redirect_to lounge_path(params[:room][:room_name])
     else
       redirect_to :action => "new"
     end
@@ -44,8 +45,7 @@ class RoomsController < ApplicationController
   end
 
   # ajax通信用のアクション
-  def ajax
-    @images = Picture.all
+  def loungeajax
     render layout: false
   end
 
