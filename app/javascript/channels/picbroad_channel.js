@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function(){
     },
 
     received(data) {
-      console.log(data['finish']);
       if(data['turnflag'] === 0){
         console.log("received!");
         $("#current_draw_number").removeAttr("class");
@@ -312,29 +311,16 @@ document.addEventListener("DOMContentLoaded", function(){
     var observer = new MutationObserver(function(){
       const canvas = document.querySelector('#draw-area');
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = "#ffffff"; //#############################################################################
       ctx.fillRect(0,0,canvas.width, canvas.height);
       if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+        console.log("you can draw");
         $("#can_you_draw").removeAttr("class");
         $("#can_you_draw").attr({class : "yes"})
       }else{
         $("#can_you_draw").removeAttr("class");
         $("#can_you_draw").attr({class : "no"})
       }
-      let count = 15
-      let countDown = setInterval(function(){
-        count -= 1
-        $("#count-down").text(String(count))
-        if(count <= 0) {
-          console.log("描き終わり！！");
-          // exitEventHandler()
-          $("#can_you_draw").removeAttr("class");
-          $("#can_you_draw").attr({class : "no"})
-          clearInterval(countDown);
-        }else if(count <= 10){
-            $('#count-down').css('color','red');
-        }
-      },1000);
       $('#turn-btn').on('click', function() {
         if(isHiragana($('#picname_form').val())){
           lastCharacter($('#last_picname').attr("class"));
@@ -348,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function(){
           }
         }else{
           alert("ひらがなだけでにゅうりょくしよう！");
-          $("#wordcount").text(String($('#picname_form').val().length) + "文字")
+          // $("#wordcount").text(String($('#picname_form').val().length) + "文字")
         }
       });
       // $("#picname_form").keyup(function(event) {

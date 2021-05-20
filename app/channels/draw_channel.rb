@@ -13,9 +13,8 @@ class DrawChannel < ApplicationCable::Channel
   end
 
   def path(data)
-    ActionCable.server.broadcast "draw_channel_#{params['room']}", begin: data['begin'], close: data['close']
+    ActionCable.server.broadcast "draw_channel_#{params['room']}", path: data['path']
   end
-
   # def turn(data)
   #   ActionCable.server.broadcast "draw_channel_#{params['room']}", userid: data['userid'], flag: data['flag']
   # end

@@ -1,18 +1,19 @@
 <%# javascript_pack_tag 'picload' %>
 <div class="ajaxReturn">
+    <div id="can_you_draw" class="no"></div>
     <%# room = Room.where(room_name: params[:room_name])%>
     <% if @room.current_drawing_number == current_user.randorder %>
         <input type="text" id="picname_form" placeholder="ひらがなでにゅうりょく！" >
         <button id="turn-btn">OK!</button>
-        <div class="draw-kits">
+        <%#<div class="draw-kits">
             <button id="eraser">消しゴム</button>
             <button id="black">黒</button>
             <button id="yellow">黄色</button>
             <button id="blue">黄色</button>
             <button id="red">黄色</button>
-        </div>
+        </div>%>
     <% else %>
-    <p id="set-btn">待機中...</p>
+    <h2>【<%= User.find_by(roomname: @room.room_name, randorder: @room.current_drawing_number).username %>】さんがおえかき中...</h2>
     <% end %>
 </div>
 

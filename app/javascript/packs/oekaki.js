@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
     const mouse = {x: null, y: null};
     let isDrag = false;
     let currentColor = 'black';
-    let currentLineWidth = 1;
+    let currentLineWidth = 5;
     let lastTime = Date.now();
     const elem = document.getElementById('btn-reload');
     const config = {
@@ -47,33 +47,59 @@ window.addEventListener('load', () => {
             mouse.y = null;
         }
 
-        function eraser(){
-            currentColor = "white"
+        // function widthA(){
+        //     currentLineWidth = 5;
+        // }
+        // function widthB(){
+        //     currentLineWidth = 30;
+        // }
+        // function widthC(){
+        //     currentLineWidth = 80;
+        // }
+        // function eraser(){
+        //     currentColor = "white"
+        // }
+        // function black(){
+        //     currentColor = "black"
+        // }
+        function clear(){
+            ctx.fillStyle = "#ffffff"; //#############################################################################
+            ctx.fillRect(0,0,canvas.width, canvas.height);
         }
-        function black(){
-            currentColor = "black"
-        }
-        function yellow(){
-            currentColor = "#f8df77"
-        }
-        function blue(){
-            currentColor = "#2ECFCA"
-        }
-        function red(){
-            currentColor = "#2BBCB8"
-        }
+        // function yellow(){
+        //     currentColor = "yellow"
+        // }
+        // function blue(){
+        //     currentColor = "blue"
+        // }
+        // function red(){
+        //     currentColor = "red"
+        // }
+        // function green(){
+        //     currentColor = "green"
+        // }
         function initEventHandler() {
-            const eraserButton = document.querySelector('#eraser');
-            const blackButton = document.querySelector('#black');
-            const yellowButton = document.querySelector('#yellow');
-            const blueButton = document.querySelector('#blue');
-            const redButton = document.querySelector('#red');
+            // const eraserButton = document.querySelector('#eraser');
+            // const blackButton = document.querySelector('#black');
+            // const yellowButton = document.querySelector('#yellow');
+            // const blueButton = document.querySelector('#blue');
+            // const greenButton = document.querySelector('#green');
+            // const redButton = document.querySelector('#red');
+            // const widthAButton = document.querySelector('#widthA');
+            // const widthBButton = document.querySelector('#widthB');
+            // const widthCButton = document.querySelector('#widthC');
+            const clearButton = document.querySelector('#clear-btn');
 
-            eraserButton.addEventListener('click', eraser);
-            blackButton.addEventListener('click', black);
-            yellowButton.addEventListener('click', yellow);
-            blueButton.addEventListener('click', blue);
-            redButton.addEventListener('click', red);
+            clearButton.addEventListener('click', clear);
+            // widthAButton.addEventListener('click', widthA);
+            // widthBButton.addEventListener('click', widthB);
+            // widthCButton.addEventListener('click', widthC);
+            // eraserButton.addEventListener('click', eraser);
+            // blackButton.addEventListener('click', black);
+            // yellowButton.addEventListener('click', yellow);
+            // blueButton.addEventListener('click', blue);
+            // greenButton.addEventListener('click', green);
+            // redButton.addEventListener('click', red);
             canvas.addEventListener('mousedown', dragStart);
             canvas.addEventListener('mouseup', dragEnd);
             canvas.addEventListener('mouseout', dragEnd);
@@ -81,32 +107,34 @@ window.addEventListener('load', () => {
                 draw(event.layerX, event.layerY, currentLineWidth, currentColor, isDrag);
             });
         }
-        function initConfigOfLineWidth() {
-            const widthNum = document.querySelector('#width-num');
-            const lineWidth = document.querySelector('#line-width');
-            currentLineWidth = lineWidth.value;
-            lineWidth.addEventListener('input', event => {
-                const width = event.target.value;
-                currentLineWidth = width;
-                widthNum.innerText = width;
-            });
-        };
         function exitEventHandler() {
-                canvas.removeEventListener('mousedown', dragStart);
-                canvas.removeEventListener('mouseup', dragEnd);
-                canvas.removeEventListener('mouseout', dragEnd);
-                canvas.removeEventListener('mousemove', event => {
-                    draw(event.layerX, event.layerY, currentLineWidth, currentColor, isDrag);
-                });
-        };
-        function exitConfigOfLineWidth() {
-            const widthNum = document.querySelector('#width-num');
-            const lineWidth = document.querySelector('#line-width');
-            currentLineWidth = lineWidth.value;
-            lineWidth.removeEventListener('input', event => {
-                const width = event.target.value;
-                currentLineWidth = width;
-                widthNum.innerText = width;
+            // const eraserButton = document.querySelector('#eraser');
+            // const blackButton = document.querySelector('#black');
+            // const yellowButton = document.querySelector('#yellow');
+            // const blueButton = document.querySelector('#blue');
+            // const greenButton = document.querySelector('#green');
+            // const redButton = document.querySelector('#red');
+            // const widthAButton = document.querySelector('#widthA');
+            // const widthBButton = document.querySelector('#widthB');
+            // const widthCButton = document.querySelector('#widthC');
+            const clearButton = document.querySelector('#clear-btn');
+
+            clearButton.addEventListener('click', clear);
+            // widthAButton.addEventListener('click', widthA);
+            // widthBButton.addEventListener('click', widthB);
+            // widthCButton.addEventListener('click', widthC);
+            // eraserButton.addEventListener('click', eraser);
+            // blackButton.addEventListener('click', black);
+            // yellowButton.addEventListener('click', yellow);
+            // blueButton.addEventListener('click', blue);
+            // greenButton.addEventListener('click', green);
+            // redButton.addEventListener('click', red);
+
+            canvas.removeEventListener('mousedown', dragStart);
+            canvas.removeEventListener('mouseup', dragEnd);
+            canvas.removeEventListener('mouseout', dragEnd);
+            canvas.removeEventListener('mousemove', event => {
+                draw(event.layerX, event.layerY, currentLineWidth, currentColor, isDrag);
             });
         };
 
@@ -117,19 +145,33 @@ window.addEventListener('load', () => {
         // }
 
         function authorized(){
-            // if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+        //     // if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
             if($("#can_you_draw").attr("class") == "yes"){
                 initEventHandler();
-                initConfigOfLineWidth();
-                // console.log("I can draw!");
+                // initConfigOfLineWidth();
+        //         // console.log("I can draw!");
             }else{
                 exitEventHandler();
-                exitConfigOfLineWidth();
+                // exitConfigOfLineWidth();
                 dragEnd();
             };
         };
-        // ここがうまくいかないです
-        setInterval(authorized, 1000);
+        // // ここがうまくいかないです
+        setTimeout(authorized, 50);
+        let count = 60
+        let countDown = setInterval(function(){
+            count -= 1
+            if(count <= 0) {
+            console.log("描き終わり！！");
+            exitEventHandler();
+            // exitConfigOfLineWidth();
+            dragEnd();
+            console.log("強制終了");
+            $("#can_you_draw").removeAttr("class");
+            $("#can_you_draw").attr({class : "no"})
+            clearInterval(countDown);
+            }
+        },1000);
     });
     observer.observe(elem, config);
 });

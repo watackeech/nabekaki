@@ -1,7 +1,7 @@
 <%# stylesheet_link_tag "show", :media => "all" %>
 <%= javascript_pack_tag 'oekaki' %>
 <%= javascript_pack_tag 'picload' %>
-<div id="can_you_draw" class="no"></div>
+
 <div id="current_draw_number" class="<%= @room.current_drawing_number %>"></div>
 <div id="current_rotation" class="<%= @room.rotation %>"></div>
 <div id="th_turn" class="<%= @room.th_turn %>"></div>
@@ -13,13 +13,26 @@
 
 <div class="main-container">
     <div class="left-container">
-    <div id="count-down">15</div>
-        <canvas id="draw-area"></canvas>
-        <div id="btn-reload">
+        <div class="other-traits">
+            <span id="count-down">60</span>
+            <button id="clear-btn"></button>
         </div>
+            <%#<div class="canvas-btns">
+                <button class="canvas-btn" id="widthA"><div class="btn-circle-text"><p class="circle">●</p></div></button>
+                <button class="canvas-btn" id="widthB"><div class="btn-circle-text"><p class="circle">●</p></div></button>
+                <button class="canvas-btn" id="widthC"><div class="btn-circle-text"><p class="circle">●</p></div></button>
+                <button class="canvas-btn" id="black"></button>
+                <button class="canvas-btn" id="eraser"></button>
 
-        <div id="ranges">
-            <p>線の太さ<input type="range" min="0" max="100" value="5" id="line-width"><span id="width-num">5</span></p>
+                <button class="canvas-btn" id="red"></button>
+                <button class="canvas-btn" id="blue"></button>
+                <button class="canvas-btn" id="green"></button>
+                <button class="canvas-btn" id="yellow"></button>
+            </div>%>
+            <div class="main-canvas">
+                <canvas id="draw-area" width="400px" height="400px"></canvas>
+            </div>
+        <div id="btn-reload">
         </div>
     </div>
     <div class="right-container">

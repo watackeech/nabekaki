@@ -1,9 +1,10 @@
 <div class="pic-display">
-    <% Picture.where(room_name: params[:room_name]).each do |p| %>
+    <% Picture.where(room_name: params[:room_name]).order(id: :DESC).each do |p| %>
         <div class="image-info">
             <%= image_tag p.image_url, class: "each-pic" if p.image? %>
             <p><%= p.in_room_order %>.<%= "●"*p.picname.length %></p>
-            <p>by<%= User.find(p.user_id).username%></p>
+            <p>by【<%= User.find(p.user_id).username%>】</p>
         </div>
     <% end %>
+    <h1>⇚ば</h1>
 </div>

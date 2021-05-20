@@ -64,7 +64,7 @@ class PicbroadChannel < ApplicationCable::Channel
       # rawpoints = (data['length']**2)/2
       # points1 = rawpoints.floor
       # puts last_picture.points
-      failed_points = (last_length**2)/2
+      failed_points = (last_picture.length**2)/2
       last_picture.update(points: last_picture.points + failed_points.floor)
       # puts last_picture.points
     end
