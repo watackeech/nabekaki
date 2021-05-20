@@ -11,27 +11,26 @@
 <div id='user_info' data-room_name="<%= @room.room_name %>" data-room_id="<%= @room.id %>" data-player_amount="<%= @players.count %>" data-current_rotation="<%= @room.rotation %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>" data-randorder="<%= @user.randorder %>"></div>
 
 
-<h1><%= @room.rand_first_character %> ⇒ <%= @room.rand_last_character %></h1>
-<ul id="player-index">
-    <% @players.each do |player| %>
-        <li class=<%= player.id %>><%= player.username %></li>
-    <% end %>
-</ul>
+<div class="main-container">
+    <div class="left-container">
+    <div id="count-down">15</div>
+        <canvas id="draw-area"></canvas>
+        <div id="btn-reload">
+        </div>
 
-    <div id="btn-reload">
-
+        <div id="ranges">
+            <p>線の太さ<input type="range" min="0" max="100" value="5" id="line-width"><span id="width-num">5</span></p>
+        </div>
     </div>
-    <canvas
-        id="draw-area"
-        width="800px"
-        height="400px"
-        style="border: 1px solid #000000; "></canvas>
-    <div id="ranges">
-        <p>線の太さ<input type="range" min="0" max="100" value="5" id="line-width"><span id="width-num">5</span></p>
+    <div class="right-container">
+        <h1><%= @room.rand_first_character %> ⇒ <%= @room.rand_last_character %></h1>
+        <div id="player-index">
+            <% @players.each do |player| %>
+                <div class="<%= player.id %>"><%= player.randorder+1 %>. <%= player.username %></div>
+            <% end %>
+        </div>
+        <div id="picreload">
+                <%# 画像更新ajax =%>
+        </div>
     </div>
-
-</div>
-
-<div id="picreload">
-        <%# <h1>Ajax更新エリア</h1> =%>
 </div>

@@ -35,6 +35,11 @@ import consumer from "./consumer"
       mouse.x = null;
       mouse.y = null;
     };
+    function dragEndLocal(event) {
+      isDrag = false;
+      mouse.x = null;
+      mouse.y = null;
+    };
     function eraser(){
       currentColor = "white"
     };
@@ -101,7 +106,7 @@ import consumer from "./consumer"
 
         exitEventHandler();
         exitConfigOfLineWidth();
-        // dragEnd();
+        dragEndLocal();
       };
     }
 
@@ -141,16 +146,16 @@ import consumer from "./consumer"
                 ctx.stroke();
             }
           };
-          // remoteDraw(
-          //   data['currentX'],
-          //   data['currentY'],
-          //   data['width'],
-          //   data['color'],
-          //   data['isDrag'],
-          //   data['lastTime'],
-          //   data['prex'],
-          //   data['prey']
-          // );
+          remoteDraw(
+            data['currentX'],
+            data['currentY'],
+            data['width'],
+            data['color'],
+            data['isDrag'],
+            data['lastTime'],
+            data['prex'],
+            data['prey']
+          );
         // };
       },
 

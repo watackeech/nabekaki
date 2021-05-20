@@ -44,42 +44,41 @@ class PicbroadChannel < ApplicationCable::Channel
   end
 
   def finish(data)
-    puts "いまのたーん"
-    puts data['th_turn']
+    # puts "いまのたーん"
+    # puts data['th_turn']
     last_order = data['th_turn'].to_i - 1 #こっちのdata['th_turn']は現在のターン
-    puts "まえのたーん"
-    puts last_order
-    puts "るーむねーむ"
-    puts data['roomname']
+    # puts "まえのたーん"
+    # puts last_order
+    # puts "るーむねーむ"
+    # puts data['roomname']
     last_picture = Picture.find_by(in_room_order: last_order, room_name: data['roomname'])
-    puts last_picture.picname
-    # last_picture = Picture.where(room_id: data['room_id'], in_room_order: data['th_turn'].to_i - 1)
-    # current_picture = Picture.where(room_id: data['room_id'], in_room_order: data['th_turn'].to_i)
-    # last_lengh = last_picture.length
+    # puts last_picture.picname
     if data['prejudge'] == 1
-      puts "まえのじゃっじが１のとき"
+      # puts "まえのじゃっじが１のとき"
       # points1 = (data['length']**2)*2
-      puts last_picture.points
+      # puts last_picture.points
       last_picture.update(points: last_picture.points + (last_picture.length**2)*2)
-      puts last_picture.points
+      # puts last_picture.points
     else
-      puts "まえのじゃっじが０のとき"
+      # puts "まえのじゃっじが０のとき"
       # rawpoints = (data['length']**2)/2
       # points1 = rawpoints.floor
-      puts last_picture.points
+      # puts last_picture.points
       failed_points = (last_length**2)/2
       last_picture.update(points: last_picture.points + failed_points.floor)
-      puts last_picture.points
+      # puts last_picture.points
     end
+
+    # puts "さいしゅうけいさん"
+    # players = User.where(roomname: data['roomname'])
+    # players.each do |p|
+    #   total_score = Picture.where(room_name: p.roomname, user_id: p.id).sum(:points)
+    #   puts p.username
+    #   puts total_score
+    #   p.update(personal_points: total_score)
+    #   puts p.personal_points
+    # end
+    # puts "最終計算終了"
     ActionCable.server.broadcast "picbroad_channel_#{params['room']}", finish: data['finish'], roomname: data['roomname']
   end
 end
-
-
-    # if data['lastjudge'] == 1
-    #   points2 = (data['length']**2)*2
-    # else
-    #   rawpoints = (data['length']**2)/2
-    #   points2 = rawpoints.floor
-    # end
-    # current_picture.update(points: points1 + points2)

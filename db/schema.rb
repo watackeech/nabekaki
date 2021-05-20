@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_16_091235) do
+ActiveRecord::Schema.define(version: 2021_05_19_160115) do
 
   create_table "pictures", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_05_16_091235) do
     t.boolean "drawing", default: false, null: false
     t.integer "randnum", default: 0
     t.integer "randorder"
+    t.integer "personal_points", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

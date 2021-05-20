@@ -31,6 +31,7 @@ const appLounge = consumer.subscriptions.create({channel: 'LoungeChannel', room:
 });
 
 window.addEventListener('load', function () {
+  console.log("yay");
   let characters = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわがぎぐげござじずぜぞだづでどばびぶべぼぱぴぷぺぽきいち"
   let initial_rand = Math.floor( Math.random() * (70) );
   let final_rand = Math.floor( Math.random() * (70) );

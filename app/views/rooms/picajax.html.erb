@@ -1,10 +1,9 @@
-<div class="ajaxReturn">
+<div class="pic-display">
     <% Picture.where(room_name: params[:room_name]).each do |p| %>
-        <div class="image">
-            <%= image_tag p.image_url, size: "250x200" if p.image? %>
-            <%= p.in_room_order %>
-            <%= "●"*p.picname.length %> by
-            <%= User.find(p.user_id).username%>
+        <div class="image-info">
+            <%= image_tag p.image_url, class: "each-pic" if p.image? %>
+            <p><%= p.in_room_order %>.<%= "●"*p.picname.length %></p>
+            <p>by<%= User.find(p.user_id).username%></p>
         </div>
     <% end %>
 </div>

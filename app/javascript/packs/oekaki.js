@@ -123,9 +123,9 @@ window.addEventListener('load', () => {
                 initConfigOfLineWidth();
                 // console.log("I can draw!");
             }else{
-                // exitEventHandler();
-                // exitConfigOfLineWidth();
-                // dragEnd();
+                exitEventHandler();
+                exitConfigOfLineWidth();
+                dragEnd();
             };
         };
         // ここがうまくいかないです

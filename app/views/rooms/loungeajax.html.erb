@@ -1,7 +1,9 @@
 <div class="ajaxReturn">
-    <ul id="player-index">
+    <div class="lounge-players">
         <% User.where(roomname: params[:room_name]).each do |player| %>
-            <li class=<%= player.id %>><%= player.username %></li>
+            <div class="player-card">
+                <h2 class=<%= player.id %>><%= player.username %></h2>
+            </div>
         <% end %>
-    </ul>
+    </div>
 </div>

@@ -122,13 +122,17 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
   function ordinal_rotation(){
+    console.log("entered ordinal rotation function");
     if (Number($('#user_info').data('randorder')) + 1 === Number($('#user_info').data('player_amount'))){
+      console.log("last turn in the rotation");
       next_order = 0
       rotation += 1
     }else{
+      console.log("normal turn in the rotation");
       next_order = Number($('#user_info').data('randorder')) + 1
       rotation = Number($('#current_rotation').attr("class"))
     }
+    console.log("if ends here");
     $('#turn-btn').text('送信中!...');
     postPicture();
     th_turn = Number($('#th_turn').attr("class")) + 1
@@ -177,15 +181,18 @@ document.addEventListener("DOMContentLoaded", function(){
 
   function gameMaster(){
     if(Number($('#user_info').data('player_amount')) < 3){ //2人以下で遊ぶ場合
-      if(Number($('#current_rotation').attr("class")) < 10){ //2周以下の処理 ####################必ず直す
+      if(Number($('#current_rotation').attr("class")) < 2){ //2周以下の処理 ####################必ず直す
         ordinal_rotation();
       }else{ //最終周の処理
         last_rotation();
       };
     }else if (Number($('#user_info').data('player_amount')) < 5){ //3人以上4人以下で遊ぶ場合
+      console.log("3 players mode");
       if(Number($('#current_rotation').attr("class")) < 2){//1周目の処理
-        ordinal_rotation
+        console.log("ordinal rotation 1st");
+        ordinal_rotation();
       }else{//2周目(最終周)の処理
+        console.log("last rotation");
         last_rotation();
       };
     }else{ //5人以上で遊ぶ場合
@@ -332,7 +339,9 @@ document.addEventListener("DOMContentLoaded", function(){
         if(isHiragana($('#picname_form').val())){
           lastCharacter($('#last_picname').attr("class"));
           makeJudge($('#picname_form').val());
+          console.log("before certification");
           if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
+            console.log("click verify");
             gameMaster();
             $("#can_you_draw").removeAttr("class");
             $("#can_you_draw").attr({class : "no"})
@@ -342,15 +351,17 @@ document.addEventListener("DOMContentLoaded", function(){
           $("#wordcount").text(String($('#picname_form').val().length) + "文字")
         }
       });
-      $("#picname_form").keyup(function(event) {
-        $("#wordcount").text(String($('#picname_form').val().length) + "文字")
-      });
+      // $("#picname_form").keyup(function(event) {
+      //   $("#wordcount").text(String($('#picname_form').val().length) + "文字")
+      // });
       $("#picname_form").keydown(function(event) {
         if (event.key === "Enter"){
           if(isHiragana($('#picname_form').val())){
             lastCharacter($('#last_picname').attr("class"));
             makeJudge($('#picname_form').val());
+            console.log("click ver before certification");
             if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
+              console.log("enter verify");
               event.preventDefault();
               gameMaster();
               $("#can_you_draw").removeAttr("class");

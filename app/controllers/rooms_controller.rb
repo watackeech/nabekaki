@@ -67,6 +67,7 @@ class RoomsController < ApplicationController
   def results
     @pictures = Picture.where(room_name: params[:room_name]).order(:id)
     @players = User.where(roomname: params[:room_name]).order(:randorder)
+    @rankings = User.where(roomname: params[:room_name]).order(:score)
     @room = Room.find_by(room_name: params[:room_name])
   end
 
