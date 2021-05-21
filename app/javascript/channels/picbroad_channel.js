@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function(){
       const canvas = document.querySelector('#draw-area');
       const ctx = canvas.getContext('2d');
       // ctx.fillStyle = "white"; //#############################################################################
-      // ctx.clearRect(0,0,canvas.width, canvas.height);
+      ctx.clearRect(0,0,canvas.width, canvas.height);
       $('.current-players').css('background-color','#F8DF77');
       $('#'+$("#current_draw_number").attr("class")+'th-player').css('background-color','#FF4E62');
 
