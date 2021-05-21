@@ -8,8 +8,9 @@
     <% if @room.user_id == @user.id %>
     <button id="start-btn">ゲームスタート！</button>
     <% else %>
-    <%= User.find(@room.user_id).username %>
-    <p>待機中...</p>
+    <p><%= User.find(@room.user_id).username %>さんがホスト！</p>
+    <br>
+    <p>たいき中...</p>
     <% end %>
 </div>
 
