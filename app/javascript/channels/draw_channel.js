@@ -237,14 +237,14 @@ import consumer from "./consumer"
                 ctx.stroke();
             }
           };
-          // remoteDraw(
-          //   data['currentX'],
-          //   data['currentY'],
-          //   data['isDrag'],
-          //   data['lastTime'],
-          //   data['prex'],
-          //   data['prey']
-          // );
+          remoteDraw(
+            data['currentX'],
+            data['currentY'],
+            data['isDrag'],
+            data['lastTime'],
+            data['prex'],
+            data['prey']
+          );
         }
         // };
       },
