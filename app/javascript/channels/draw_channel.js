@@ -169,7 +169,7 @@ import consumer from "./consumer"
         characterData: true
     };
     var observer = new MutationObserver(function(){
-      setTimeout(authorized, 50);
+      setTimeout(authorized, 200);
       // function startCountDown(){
       let count = 60
       let countDown = setInterval(function(){

@@ -7,7 +7,7 @@
 <% mvp_id = @pictures.find_by(points: max_score).user_id %>
 <div class="personal-box">
     <% @players.each do |p| %>
-        <% if mvp_id = p.id %>
+        <% if mvp_id == p.id %>
             <div class="personal-results">
                 <p id="mvp"><%= p.username %>さんのスコア：
                 <% userpics = Picture.where(room_name: p.roomname, user_id: p.id) %>
