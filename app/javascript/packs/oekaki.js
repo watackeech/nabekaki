@@ -3,8 +3,8 @@ window.addEventListener('load', () => {
     const ctx = canvas.getContext('2d');
     const mouse = {x: null, y: null};
     let isDrag = false;
-    let currentColor = 'black';
-    let currentLineWidth = 5;
+    let currentColor = '#FF4E62';
+    let currentLineWidth = 15;
     let lastTime = Date.now();
     const elem = document.getElementById('btn-reload');
     const config = {
@@ -54,17 +54,17 @@ window.addEventListener('load', () => {
         //     currentLineWidth = 30;
         // }
         // function widthC(){
-        //     currentLineWidth = 80;
+        //     currentLineWidth = 10;
         // }
         // function eraser(){
         //     currentColor = "white"
         // }
         // function black(){
-        //     currentColor = "black"
+        //     currentColor = "white"
         // }
         function clear(){
-            ctx.fillStyle = "#ffffff"; //#############################################################################
-            ctx.fillRect(0,0,canvas.width, canvas.height);
+            // ctx.fillStyle = "#ffffff"; //#############################################################################
+            ctx.clearRect(0,0,canvas.width, canvas.height);
         }
         // function yellow(){
         //     currentColor = "yellow"
@@ -87,7 +87,7 @@ window.addEventListener('load', () => {
             // const redButton = document.querySelector('#red');
             // const widthAButton = document.querySelector('#widthA');
             // const widthBButton = document.querySelector('#widthB');
-            // const widthCButton = document.querySelector('#widthC');
+            // const widthCButton = document.querySelector('#width');
             const clearButton = document.querySelector('#clear-btn');
 
             clearButton.addEventListener('click', clear);
@@ -151,8 +151,7 @@ window.addEventListener('load', () => {
                 // initConfigOfLineWidth();
         //         // console.log("I can draw!");
             }else{
-                exitEventHandler();
-                // exitConfigOfLineWidth();
+                exitEventHandler(); //#############################################################3
                 dragEnd();
             };
         };
@@ -163,8 +162,7 @@ window.addEventListener('load', () => {
             count -= 1
             if(count <= 0) {
             console.log("描き終わり！！");
-            exitEventHandler();
-            // exitConfigOfLineWidth();
+            exitEventHandler(); //#####################################################################
             dragEnd();
             console.log("強制終了");
             $("#can_you_draw").removeAttr("class");

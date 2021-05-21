@@ -13,7 +13,7 @@
             <button id="red">黄色</button>
         </div>%>
     <% else %>
-    <h2>【<%= User.find_by(roomname: @room.room_name, randorder: @room.current_drawing_number).username %>】さんがおえかき中...</h2>
+    <h2><%= User.find_by(roomname: @room.room_name, randorder: @room.current_drawing_number).username %>さんがおえかき中...</h2>
     <% end %>
 </div>
 

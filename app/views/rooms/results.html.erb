@@ -1,30 +1,49 @@
-Finished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<div class="results-top-box">
+    <h1 id="results-roomname"><%= @room.room_name %></h1>
+    <h1 id="total-score">全体スコア：<%= (@pictures.sum(:points) / @pictures.count).floor %></h1>
+</div>
 
-<br>
-<h1><%= @room.room_name %></h1>
-<h1>最終スコア：<%= (@pictures.sum(:points) / @pictures.count).floor %></h1>
-<h2><%= @room.rand_first_character %> ⇒ </h2>
+<% max_score = @pictures.maximum(:points) %>
+<% mvp_id = @pictures.find_by(points: max_score).user_id %>
+<div class="personal-box">
+    <% @players.each do |p| %>
+        <% if mvp_id = p.id %>
+            <div class="personal-results">
+                <p id="mvp"><%= p.username %>さんのスコア：
+                <% userpics = Picture.where(room_name: p.roomname, user_id: p.id) %>
+                <%= (userpics.sum(:points) / userpics.count).floor %> MVP!</p>
+            </div>
+        <% else %>
+            <div class="personal-results">
+                <p class="not-mvps"><%= p.username %>さんのスコア：
+                <% userpics = Picture.where(room_name: p.roomname, user_id: p.id) %>
+                <%= (userpics.sum(:points) / userpics.count).floor %></p>
+            </div>
+        <% end %>
+    <% end %>
+</div>
 
 
-<% @players.each do |p| %>
-        <div class="personal-results">
-            <%= p.username %>の平均スコア：
-            <% userpics = Picture.where(room_name: p.roomname, user_id: p.id) %>
-            <%= (userpics.sum(:points) / userpics.count).floor %>
+<div class="pic-display">
+    <h1 id="first-chara-result"><%= @room.rand_first_character %></h1>
+    <% @pictures.each do |p| %>
+        <% if p.judge == 1 %>
+                <div class="results-directions"><%= image_tag 'right-direction', id: "right-direction", class: "directions-img", width: "20%", height: "auto" %></div>
+        <% else %>
+                <div class="results-directions"><%= image_tag 'wrong-direction', id: "wrong-direction", class: "directions-img", width: "20%", height: "auto" %></div>
+        <% end %>
+        <div class="image-info">
+            <%= image_tag p.image_url, class: "each-pic", size: "200x200" if p.image? %>
+            <p><%= p.in_room_order %>. <%= p.picname %></p>
+            <p><span class="results-points"><%= p.points %>点</span>  by<%= User.find(p.user_id).username%></p>
         </div>
-<% end %>
-<% @pictures.each do |p| %>
-        <div class="image">
-            <%= image_tag p.image_url, size: "250x200" if p.image? %>
-            <%= p.in_room_order %>
-            <%= p.picname %>
-            <%= p.points %>
-            <%= User.find(p.user_id).username%>
-            <% if p.judge == 1 %>
-                〇⇒
-            <% else %>
-                ×⇒
-            <% end %>
-        </div>
-<% end %>
-<h2> ⇒ <%= @room.rand_last_character %></h2>
+    <% end %>
+    <% last_picname = @pictures.last.picname %>
+    <% last_character = last_picname[-1] %>
+    <% if last_character ==  @room.rand_last_character %>
+            <div class="results-directions"><%= image_tag 'right-direction', id: "right-direction", class: "directions-img", width: "20%", height: "auto" %></div>
+    <% else %>
+            <div class="results-directions"><%= image_tag 'wrong-direction', id: "wrong-direction", class: "directions-img", width: "20%", height: "auto" %></div>
+    <% end %>
+    <h1 id="last-chara-result"><%= @room.rand_last_character %></h1>
+</div>

@@ -11,6 +11,10 @@ class PicbroadChannel < ApplicationCable::Channel
     ActionCable.server.broadcast "picbroad_channel_#{params['room']}", picreloading: data['picreloading']
   end
 
+  def countDown(data)
+    ActionCable.server.broadcast "picbroad_channel_#{params['room']}", count: data['count'], current_order: data['current_order']
+  end
+
   def turn(data)
     room = Room.find(data['room_id'])
     room.update(current_drawing_number: data['current_order'])

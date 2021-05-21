@@ -10,13 +10,13 @@ import consumer from "./consumer"
     let currentColor = 'black';
     let currentLineWidth = 5 ;
     let lastTime = Date.now();
-    function draw(x, y, currentLineWidth, currentColor, isDrag) {
+    function draw(x, y, isDrag) {
         if (!isDrag) {
             return;
         } else if (isDrag && Date.now() - lastTime > 20) {
 
             lastTime = Date.now();
-            appRoom.reflect(currentColor, currentLineWidth, isDrag, x, y, mouse.x, mouse.y, lastTime);
+            appRoom.reflect(isDrag, x, y, mouse.x, mouse.y, lastTime);
             mouse.x = x;
             mouse.y = y;
         }
@@ -55,8 +55,8 @@ import consumer from "./consumer"
     //     currentColor = "white"
     // }
     function clear(){
-      ctx.fillStyle = "#ffffff"; //#############################################################################
-      ctx.fillRect(0,0,canvas.width, canvas.height);
+      // ctx.fillStyle = "#ffffff"; //#############################################################################
+      ctx.clearRect(0,0,canvas.width, canvas.height);
       appRoom.path(2);
     }
     // function black(){
@@ -100,7 +100,7 @@ import consumer from "./consumer"
       canvas.addEventListener('mouseup', dragEnd);
       canvas.addEventListener('mouseout', dragEnd);
       canvas.addEventListener('mousemove', event => {
-          draw(event.layerX, event.layerY, currentLineWidth, currentColor, isDrag);
+          draw(event.layerX, event.layerY, isDrag);
       });
     };
     // function initConfigOfLineWidth() {
@@ -157,10 +157,8 @@ import consumer from "./consumer"
     function authorized(){
       if($("#can_you_draw").attr("class") == "yes"){
         initEventHandler();
-        // initConfigOfLineWidth();
       }else{
         exitEventHandler();
-        // exitConfigOfLineWidth();
         dragEnd();
       };
     }
@@ -172,22 +170,26 @@ import consumer from "./consumer"
     };
     var observer = new MutationObserver(function(){
       setTimeout(authorized, 50);
+      // function startCountDown(){
       let count = 60
       let countDown = setInterval(function(){
         count -= 1
-        $("#count-down").text(String(count))
         if(count <= 0) {
-          console.log("描き終わり！！");
           exitEventHandler();
           dragEnd();
-          console.log("強制終了");
-          $("#can_you_draw").removeAttr("class");
-          $("#can_you_draw").attr({class : "no"})
+          // $("#can_you_draw").removeAttr("class");
+          // $("#can_you_draw").attr({class : "no"})
           clearInterval(countDown);
-        }else if(count <= 10){
-            $('#count-down').css('color','red');
         }
+        // else if(count <= 10){
+          // $('#count-down').css('color','red');
+        // }
       },1000);
+      // }
+      // function stopCountDown(){
+      // }
+      // stopCountDown();
+      // startCountDown();
     });
     observer.observe(elem, config);
 
@@ -218,40 +220,39 @@ import consumer from "./consumer"
           } else if (data['path'] == 0){
             ctx.closePath();
           }else if(data['path'] == 2){
-            ctx.fillStyle = "#ffffff"; //#############################################################################
-            ctx.fillRect(0,0,canvas.width, canvas.height);
+            // ctx.fillStyle = "#ffffff"; //#############################################################################
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.closePath();
           }
-          function remoteDraw(x, y, currentLineWidth, currentColor, isDrag, lastTime, prex, prey) {
+          function remoteDraw(x, y, isDrag, lastTime, prex, prey) {
             if (!isDrag) {
                 return;
             } else if (isDrag && Date.now() - lastTime > 20) {
                 ctx.lineCap = 'round';
                 ctx.lineJoin = ' round';
-                ctx.lineWidth = currentLineWidth;
-                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = "black";
                 ctx.moveTo(prex, prey);
                 ctx.lineTo(x, y);
                 ctx.stroke();
             }
           };
-          remoteDraw(
-            data['currentX'],
-            data['currentY'],
-            data['width'],
-            data['color'],
-            data['isDrag'],
-            data['lastTime'],
-            data['prex'],
-            data['prey']
-          );
+          // remoteDraw(
+          //   data['currentX'],
+          //   data['currentY'],
+          //   data['isDrag'],
+          //   data['lastTime'],
+          //   data['prex'],
+          //   data['prey']
+          // );
         }
         // };
       },
 
-      reflect: function(color, width, isDrag, currentX, currentY, prex, prey, lastTime) {
+      reflect: function(isDrag, currentX, currentY, prex, prey, lastTime) {
         return this.perform('reflect',  {
-          color: color,
-          width: width,
+          // color: color,
+          // width: width,
           isDrag: isDrag,
           currentX: currentX,
           currentY: currentY,

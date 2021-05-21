@@ -3,11 +3,12 @@
 <div id='room_info' data-room_name="<%= @room.room_name %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>"></div>
 
 
-<h1><%= "#{@room.room_name}" %></h1>
+<h1 class="roomname"><%= "#{@room.room_name}" %></h1>
     <div id="start-btn-container">
     <% if @room.user_id == @user.id %>
     <button id="start-btn">ゲームスタート！</button>
     <% else %>
+    <%= User.find(@room.user_id).username %>
     <p>待機中...</p>
     <% end %>
 </div>

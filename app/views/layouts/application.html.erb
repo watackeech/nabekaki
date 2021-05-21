@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Nabekaki</title>
+    <title>dooble</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,28 +10,184 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <header>
-    <div id="header-title">なべかき！</div>
+    <%= link_to image_tag("title_logo.png", id:"header-title", class:"header-images"), root_path %>
     <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
     <div id="header-info">
       <% if user_signed_in? %>
         <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
         <!-- *_path はUserモデルを作成したときに、
         deviseにより自動で作成されてますので、rake routesで確認できます -->
-        Logged in as <strong><%= current_user.username %></strong>
-        <%= link_to 'トップ', root_path %> |
-        <%= link_to 'プロフィール変更', edit_user_registration_path %> |
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> |
-        <%= link_to 'ルーム参加', rooms_join_path %>
+        <div class="header-links" id="header-message">
+          こんにちは！ <strong id="header-username"><%= current_user.username %></strong> さん
+        </div>
+        <div class="header-links">
+        </div>
+        <div class="header-links">
+          <%= link_to(rooms_new_path) do %>
+            <div class="link-boxes">
+              <%= image_tag 'create_black.png', id: "new-link" %>
+              <div class="mask">
+                <div class="caption">new</div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="header-links">
+          <%= link_to(rooms_join_path) do %>
+            <div class="link-boxes">
+              <%= image_tag 'join_thin.png', id: "join-link" %>
+              <div class="mask">
+                <div class="caption" id="join-mask">join</div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="header-links">
+          <%= link_to(destroy_user_session_path, method: :delete) do %>
+            <div class="link-boxes">
+              <%= image_tag 'logout.png', id: "logout" %>
+              <div class="mask">
+                <div class="caption">bye</div>
+              </div>
+            </div>
+          <% end %>
+        </div>
       <% else %>
-        <%= link_to 'トップ', root_path %> |
-        <%= link_to "サインイン", new_user_registration_path %> |
-        <%= link_to "ログイン", new_user_session_path %> |
-        <%= link_to 'ルーム参加', rooms_join_path %>
+          <div class="header-links">
+            さっそく登録！orログイン！
+          </div>
+          <div class="header-links">
+            <%= link_to(new_user_session_path) do %>
+              <div class="link-boxes">
+                <%= image_tag 'login.png', id: "login" %>
+                <div class="mask">
+                  <div class="caption" id="before-logins">log<br>-in</div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="header-links">
+            <%= link_to(new_user_registration_path) do %>
+              <div class="link-boxes">
+                <%= image_tag 'signup.png', id: "signup" %>
+                <div class="mask">
+                  <div class="caption" id="before-logins">sign<br>-up</div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <%# link_to 'トップ', root_path %>
+          <%# link_to "サインイン", new_user_registration_path %>
+          <%# link_to "ログイン", new_user_session_path %>
+          <%# link_to image_tag("new_link_white.png", id:"new-link", class:"header-images"), rooms_new_path %>
+          <%# link_to 'ルーム参加', rooms_join_path %>
       <% end %>
     </div>
+    <style>
+      header{
+        width: 100%;
+        height: 5.5vw;
+        background: #2ECFCA;
+        display: flex;
+        align-items: center;
+      }
+      #header-title{
+        width: 16vw;
+        height: auto;
+        margin-left: 1.5vw;
+      }
+      #header-message{
+        margin-right:3vw;
+      }
+      .header-links{
+        /* margin-right: 1.5vw; */
+      }
+      .link-boxes{
+        width: 5.5vw;
+        height: 5.5vw;
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+      .link-boxes .caption {
+        font-size: 2.5vw;
+        /* text-align: center; */
+        margin-left: 7%;
+        margin-top: 9%;
+        color: #fff;
+      }
+      .link-boxes .mask {
+        width: 100%;
+        height:	100%;
+        position:	absolute;
+        top: 0;
+        left:	0;
+        opacity: 0;
+        text-align: center;
+        background-color:	rgba(0,0,0,0.4);
+        -webkit-transition:	all 0.2s ease;
+        transition:	all 0.2s ease;
+      }
+      .link-boxes:hover .mask {
+        opacity:		1;
+      }
+      #new-link{
+        width: 4.5vw;
+        height: 4.5vw;
+        margin-top: 10%;
+      }
+      #join-link{
+        width: 3.8vw;
+        height: 4.7vw;
+        margin-top: 7%;
+      }
+      #logout{
+        width: 4vw;
+        height: 4vw;
+        margin-top: 13%;
+      }
+      #login{
+        width: 4.3vw;
+        height: 4.3vw;
+        margin-top: 11%;
+      }
+      #signup{
+        background-color: #FF4E62;
+        padding: 8%;
+        margin-top: 11%;
+        height: 3.4vw;
+        width: 3.4vw;
+        border-radius: 20%;
+        -moz-border-radius: 20%;
+        -webkit-border-radius: 20%;
+      }
+      #before-logins{
+        font-size: 2vw;
+        line-height: 2vw;
+        margin-top: 5%;
+      }
+      #join-mask{
+        font-size: 2.3vw;
+        margin-top: 9%;
+      }
+      #header-info{
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
+      #header-username{
+        font-size: 1.5vw;
+      }
+
+
+    </style>
   </header>
 
   <body>
     <%= yield %>
   </body>
+
+  <footer>
+    <%# <p>©nabe-chan All Rights Reserved.</p> %>
+  </footer>
 </html>

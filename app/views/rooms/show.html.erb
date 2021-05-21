@@ -10,18 +10,32 @@
 <div id="rand_last_character" class="<%= @room.rand_last_character %>"></div>
 <div id='user_info' data-room_name="<%= @room.room_name %>" data-room_id="<%= @room.id %>" data-player_amount="<%= @players.count %>" data-current_rotation="<%= @room.rotation %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>" data-randorder="<%= @user.randorder %>"></div>
 
+<% player_amount = @players.count %>
+<% if %>
+<% player_amount < 3 %>
+<% max_turn = player_amount*3 %>
+<% elsif %>
+<% player_amount < 5 %>
+<% max_turn = player_amount*2 %>
+<% else %>
+<% max_turn = player_amount %>
+<% end %>
 
 <div class="main-container">
     <div class="left-container">
         <div class="other-traits">
-            <span id="count-down">60</span>
-            <button id="clear-btn"></button>
+            <div id="count-box">
+                <h1 id="count-down">60</h1>
+            </div>
+            <%#<button id="black">色</button>
+            <button id="width">幅</button>%>
+            <button id="clear-btn">リセット</button>
         </div>
             <%#<div class="canvas-btns">
                 <button class="canvas-btn" id="widthA"><div class="btn-circle-text"><p class="circle">●</p></div></button>
                 <button class="canvas-btn" id="widthB"><div class="btn-circle-text"><p class="circle">●</p></div></button>
                 <button class="canvas-btn" id="widthC"><div class="btn-circle-text"><p class="circle">●</p></div></button>
-                <button class="canvas-btn" id="black"></button>
+
                 <button class="canvas-btn" id="eraser"></button>
 
                 <button class="canvas-btn" id="red"></button>
@@ -36,11 +50,20 @@
         </div>
     </div>
     <div class="right-container">
-        <h1><%= @room.rand_first_character %> ⇒ <%= @room.rand_last_character %></h1>
-        <div id="player-index">
-            <% @players.each do |player| %>
-                <div class="<%= player.id %>"><%= player.randorder+1 %>. <%= player.username %></div>
-            <% end %>
+        <div class="top-right-box">
+            <div id="turn-count-box">
+                <span class="explanation">あと</span><h1 id="turn-count"><%= max_turn - @room.th_turn + 1 %></h1><span class="explanation">ターンで</span>
+            </div>
+            <div class="last-chara-box">
+                <h1 id="last-character">「<%= @room.rand_last_character %>」</h1><span class="explanation">で終わろう！</span>
+            </div>
+        </div>
+        <div class="middle-right-box">
+            <div id="player-index">
+                <% @players.each do |player| %>
+                    <div class="current-players" id="<%=player.randorder%>th-player"><%= player.randorder+1 %>.<%= player.username %></div>
+                <% end %>
+            </div>
         </div>
         <div id="picreload">
                 <%# 画像更新ajax =%>

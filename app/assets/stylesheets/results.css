@@ -1,0 +1,54 @@
+.results-top-box{
+    display: flex;
+    margin-left: 2vw;
+}
+#results-roomname{
+    font-size: 3vw;
+}
+#total-score{
+    font-size: 3vw;
+}
+
+.personal-box{
+    margin-left: 2vw;
+}
+.personal-results{
+    font-size: 2vw;
+}
+
+#mvp{
+    font-size: 2vw;
+    color: red;
+    font-weight: bold;
+}
+.not-mvps{
+    font-size: 2vw;
+}
+
+#first-chara-result{
+    font-size: 6vw;
+    margin-top: 5%;
+    margin-left: 2vw;
+}
+#last-chara-result{
+    font-size: 6vw;
+    margin-top: 5%;
+    margin-left: 1.5vw;
+}
+.results-directions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7vw;
+}
+
+.directions-img{
+    width: 70%;
+    height: auto;
+    margin-bottom: 20%;
+    margin-left: 21%;
+}
+
+.results-points{
+    font-weight: bold;
+}

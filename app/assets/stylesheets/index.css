@@ -1,41 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-body{
-    background: #F9F3DE;
-}
-
-header{
-    width: 100%;
-    height: 5.5vw;
-    background: #2ECFCA;
-    display: flex;
-    align-items: center;
-}
-
-#header-info{
-    font-family: Roboto;
-    font-style: normal;
-    font-size: 1vw;
-}
-
-#header-title{
-    font-family: Roboto;
-    vertical-align: middle;
-    font-style: normal;
-    font-weight: bold;
-    margin-left: 1vw;
-    font-size: 3vw;
-    color: #F9F3DE;
-}
 
 
-#header-info{
-    position: absolute;
-    right: 13px;
-}
 
 .boxes{
     position: relative;
@@ -50,7 +14,7 @@ header{
 #shiritori-box h1{
     position: absolute;
     font-size: 3.5vw;
-    left: 34%;
+    left: 32%;
 }
 
 #bucket{
@@ -94,6 +58,38 @@ header{
     margin-top: 28%;
 }
 
+#human{
+    position: absolute;
+    margin-right: 73%;
+    margin-bottom: 36%;
+    transform: rotate(10deg);
+}
+
+#kiwi{
+    position: absolute;
+    margin-right: 68%;
+    margin-top: 25%;
+}
+#banana{
+    position: absolute;
+    margin-right: 80%;
+    margin-top: 2%;
+    transform: rotate(50deg);
+}
+#hamaie{
+    position: absolute;
+    margin-left: 79%;
+    margin-top: 20%;
+    transform: rotate(-10deg);
+}
+
+#yamauchi{
+    position: absolute;
+    margin-left: 79%;
+    margin-bottom: 20%;
+    transform: rotate(10deg);
+}
+
 #drop-down{
     position: absolute;
     margin-right: 60%;
@@ -110,7 +106,7 @@ header{
     border-color: #FF4E62;
     border-width: 1vw;
     padding-bottom: 0;
-    line-height: 0.4;
+    line-height: 0.7;
 }
 
 .box-passage{
@@ -173,4 +169,8 @@ box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
 #btn3{
     margin-top: 10%;
     margin-left: 11%;
+}
+
+#lets-start-box{
+    margin-bottom: 2vw;
 }

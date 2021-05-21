@@ -1,10 +1,11 @@
 <div class="pic-display">
     <% Picture.where(room_name: params[:room_name]).order(id: :DESC).each do |p| %>
         <div class="image-info">
-            <%= image_tag p.image_url, class: "each-pic" if p.image? %>
-            <p><%= p.in_room_order %>.<%= "●"*p.picname.length %></p>
+            <%= image_tag p.image_url, class: "each-pic",  alt: "りろーどしてね！" if p.image? %>
+            <p><%= p.in_room_order %>.<span id="words-circle"><%= "●"*p.picname.length %><span></p>
             <p>by【<%= User.find(p.user_id).username%>】</p>
         </div>
     <% end %>
-    <h1>⇚ば</h1>
+    <div class="directions"><%= image_tag 'direction', id: "direction", width: "20%", height: "auto" %></div>
+    <div class="directions"><h1 id="first_character"><%=Room.find_by(room_name: params[:room_name]).rand_first_character%></h1><span class="explanation" id="start-with">で始めて</span></div>
 </div>
