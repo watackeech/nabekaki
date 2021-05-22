@@ -27,7 +27,7 @@ import consumer from "./consumer"
       isDrag = true;
       mouse.x = event.layerX;
       mouse.y = event.layerY;
-      console.log("begin");
+      // console.log("begin");
     };
     function dragEnd(event) {
       appRoom.path(0);
@@ -35,7 +35,7 @@ import consumer from "./consumer"
       isDrag = false;
       mouse.x = null;
       mouse.y = null;
-      console.log("close");
+      // console.log("close");
     };
     // function dragEndLocal(event) {
     //   isDrag = false;

@@ -161,10 +161,10 @@ window.addEventListener('load', () => {
         let countDown = setInterval(function(){
             count -= 1
             if(count <= 0) {
-            console.log("描き終わり！！");
+            // console.log("描き終わり！！");
             exitEventHandler(); //#####################################################################
             dragEnd();
-            console.log("強制終了");
+            // console.log("強制終了");
             $("#can_you_draw").removeAttr("class");
             $("#can_you_draw").attr({class : "no"})
             clearInterval(countDown);

@@ -16,20 +16,25 @@ document.addEventListener("DOMContentLoaded", function(){
     },
 
     received(data) {
-      console.log("received");
-      console.log(data['turnflag']);
+      // console.log("received");
+      // console.log(data['turnflag']);
       if(data['current_order'] != $('#user_info').data('randorder')){
-        console.log("im drawing");
-        $("#count-down").text(String(data['count']))
-        if(data['count'] <= 10) {
-          $('#count-down').css('color','red');
+        if(data['count']){ //undefined除外処理
+          // console.log("im drawing");
+          $("#count-down").text(String(data['count']))
+          if(data['count'] <= 10) {
+            $('#count-down').css('color','red');
+          }else{
+            $('#count-down').css('color','black');
+          }
         }else{
-          $('#count-down').css('color','black');
+          $("#count-down").text(String(0))
+          $('#count-down').css('color','red');
         }
       }
-      console.log("currentorder-finished");
+      // console.log("currentorder-finished");
       if(data['turnflag'] == 0){
-        console.log("entered turnflag");
+        // console.log("entered turnflag");
         $("#current_draw_number").removeAttr("class");
         $("#current_draw_number").attr({class : String(data['current_order'])});
         $("#current_rotation").removeAttr("class");
@@ -55,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function(){
           ajax.send(null);
         };
         let turn_count = Number($("#turn-count").html());
-        console.log(turn_count);
+        // console.log(turn_count);
         turn_count -= 1
         $('#turn-count').text(String(turn_count));
 
@@ -69,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function(){
         };
         window.setTimeout(broadcast, 3000);
       }else if(data['finish'] === 0){
-        console.log("game has finished!!!");
+        // console.log("game has finished!!!");
         function toResult(){
           window.location.pathname = "rooms/" + data['roomname'] + "/results"
           // console.log("movecancel");
@@ -144,13 +149,13 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   };
   function ordinal_rotation(){
-    console.log("entered ordinal rotation function");
+    // console.log("entered ordinal rotation function");
     if (Number($('#user_info').data('randorder')) + 1 === Number($('#user_info').data('player_amount'))){
-      console.log("last turn in the rotation");
+      // console.log("last turn in the rotation");
       next_order = 0
       rotation += 1
     }else{
-      console.log("normal turn in the rotation");
+      // console.log("normal turn in the rotation");
       next_order = Number($('#user_info').data('randorder')) + 1
       rotation = Number($('#current_rotation').attr("class"))
     }
@@ -158,12 +163,12 @@ document.addEventListener("DOMContentLoaded", function(){
     postPicture();
     th_turn = Number($('#th_turn').attr("class")) + 1
     appPicpost.turn(next_order, 0, $('#user_info').data('room_id'), rotation, th_turn, $('#picname_form').val(), judge);
-    console.log("appPicpost.turn ends here");
+    // console.log("appPicpost.turn ends here");
   };
 
   function last_rotation(){
     if (Number($('#user_info').data('randorder')) + 1 === Number($('#user_info').data('player_amount'))){
-      console.log("finish!!!");
+      // console.log("finish!!!");
       let prejudge = judge
       lastCharacter($('#picname_form').val());
       makeJudge($('#rand_last_character').attr("class"));
@@ -204,18 +209,18 @@ document.addEventListener("DOMContentLoaded", function(){
   function gameMaster(){
     if(Number($('#user_info').data('player_amount')) < 3){ //2人以下で遊ぶ場合
       if(Number($('#current_rotation').attr("class")) < 3){ //2周以下の処理 ####################必ず直す
-        console.log("before ordinal rotation");
+        // console.log("before ordinal rotation");
         ordinal_rotation();
       }else{ //最終周の処理
         last_rotation();
       };
     }else if (Number($('#user_info').data('player_amount')) < 5){ //3人以上4人以下で遊ぶ場合
-      console.log("3 players mode");
+      // console.log("3 players mode");
       if(Number($('#current_rotation').attr("class")) < 2){//1周目の処理
-        console.log("ordinal rotation 1st");
+        // console.log("ordinal rotation 1st");
         ordinal_rotation();
       }else{//2周目(最終周)の処理
-        console.log("last rotation");
+        // console.log("last rotation");
         last_rotation();
       };
     }else{ //5人以上で遊ぶ場合
@@ -244,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function(){
   function lastCharacter(character){
     last_character = character;
     if(Number($('#th_turn').attr("class")) == 1){
-      console.log("this is first turn");
+      // console.log("this is first turn");
       last_character = $('#rand_first_character').attr("class")
     }else{
       if(irregularLastLetter(last_character.slice( -1 ))){
@@ -307,21 +312,21 @@ document.addEventListener("DOMContentLoaded", function(){
         last_character = character.slice( -1 )
         // console.log(last_character);
       }
-      console.log("最後の文字は" + last_character);
+      // console.log("最後の文字は" + last_character);
     }
   };
 
   function makeJudge(word){
     if(word.slice(0, 1) == last_character){
       judge = 1
-      console.log("you got right!!");
+      // console.log("you got right!!");
       points = ($('#picname_form').val().length ** 2) * 2
-      console.log(points);
+      // console.log(points);
     }else{
       judge = 0
-      console.log("booooo");
+      // console.log("booooo");
       points = Math.floor(($('#picname_form').val().length ** 2) / 2)
-      console.log(points);
+      // console.log(points);
     }
   }
 
@@ -341,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function(){
       $('#'+$("#current_draw_number").attr("class")+'th-player').css('background-color','#FF4E62');
 
       if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
-        console.log("you can draw");
+        // console.log("you can draw");
         $("#can_you_draw").removeAttr("class");
         $("#can_you_draw").attr({class : "yes"})
         let count = 60;
@@ -364,9 +369,9 @@ document.addEventListener("DOMContentLoaded", function(){
           if(isHiragana($('#picname_form').val()) && $('#picname_form').val().length>0){
             lastCharacter($('#last_picname').attr("class"));
             makeJudge($('#picname_form').val());
-            console.log("before certification");
+            // console.log("before certification");
             if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
-              console.log("click verify");
+              // console.log("click verify");
               gameMaster();
               $("#can_you_draw").removeAttr("class");
               $("#can_you_draw").attr({class : "no"})
@@ -385,9 +390,9 @@ document.addEventListener("DOMContentLoaded", function(){
             if(isHiragana($('#picname_form').val()) && $('#picname_form').val().length>0){
               lastCharacter($('#last_picname').attr("class"));
               makeJudge($('#picname_form').val());
-              console.log("click ver before certification");
+              // console.log("click ver before certification");
               if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
-                console.log("enter verify");
+                // console.log("enter verify");
                 event.preventDefault();
                 gameMaster();
                 $("#can_you_draw").removeAttr("class");
@@ -405,7 +410,7 @@ document.addEventListener("DOMContentLoaded", function(){
         $("#can_you_draw").attr({class : "no"})
       }
 
-      console.log('DOMが変化しました');
+      // console.log('DOMが変化しました');
     });
     observer.observe(elem, config);
   };

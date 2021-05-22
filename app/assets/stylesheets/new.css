@@ -13,7 +13,7 @@
 }
 
 #room_room_name{
-    margin-top: 0.7vw;
+    margin-top: 10.7vw;
     padding: 0.8em;
     outline: none;
     border: 1px solid #DDD;
@@ -31,19 +31,23 @@
 }
 
 #create-room-btn{
+    -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    cursor:pointer;
     margin-top: 2.8vw;
     width: 30%;
     height: 8vw;
     color: #fff;
     font-size: 3.4vw;
     font-weight: bold;
+    border: none;
     background-color: #eb6100;
     border-bottom: 5px solid #b84c00;
     /* -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
     box-shadow: 0 3px 5px rgba(0, 0, 0, .3); */
 }
 
-#create-room-btn:hover {
+#create-room-btn:active {
     margin-top: 3.2vw;
     color: #fff;
     background: #f56500;

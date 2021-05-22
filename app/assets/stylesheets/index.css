@@ -145,32 +145,70 @@ h2.btn--shadow {
 box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
 }
 
+
+.last-btns{
+    position: absolute;
+}
+.last-btn-text{
+    font-size: 3vw;
+}
+.last-link{
+    text-decoration: none;
+}
+#btn1{
+    margin-right: 24%;
+    margin-top: 1%;
+}
+#btn2{
+    margin-left: 30%;
+    margin-top: 1%;
+}
 .btn{
-    width: 15%;
-    height: 13%;
-    text-align: center;
     display: flex;
     align-items: center;
+    justify-content: center;
+    -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    cursor:pointer;
+    margin-top: 2.8vw;
+    width: 23vw;
+    height: 7vw;
+    color: #fff;
+    font-size: 3.4vw;
+    font-weight: bold;
+    border: none;
+    background-color: #eb6100;
+    border-bottom: 5px solid #b84c00;
+    /* -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3); */
 }
 
+.btn:active {
+    margin-top: 3.2vw;
+    color: #fff;
+    background: #f56500;
+    border-bottom: 2px solid #b84c00;
+}
+
+/*
 .btn-text{
     margin: auto;
-    /* height: 100%; */
-}
+    font-size: 3vw;
+    border-bottom: none;
+} */
 
-#btn1{
+/* #btn1{
     margin-top: 0%;
     margin-left: 2%;
 }
 #btn2{
     margin-top: 0%;
     margin-left: 20%;
-}
-#btn3{
-    margin-top: 10%;
-    margin-left: 11%;
-}
-
+} */
 #lets-start-box{
     margin-bottom: 2vw;
+}
+
+#last-title{
+    margin-left: 6vw;
 }

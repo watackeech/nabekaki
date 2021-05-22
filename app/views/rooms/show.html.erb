@@ -5,7 +5,7 @@
 <div id="current_draw_number" class="<%= @room.current_drawing_number %>"></div>
 <div id="current_rotation" class="<%= @room.rotation %>"></div>
 <div id="th_turn" class="<%= @room.th_turn %>"></div>
-<div id="last_picname" class="<%= @room.last_picname %>"></div>
+
 <div id="rand_first_character" class="<%= @room.rand_first_character %>"></div>
 <div id="rand_last_character" class="<%= @room.rand_last_character %>"></div>
 <div id='user_info' data-room_name="<%= @room.room_name %>" data-room_id="<%= @room.id %>" data-player_amount="<%= @players.count %>" data-current_rotation="<%= @room.rotation %>" data-user_name="<%= @user.username %>" data-user_id="<%= @user.id %>" data-randorder="<%= @user.randorder %>"></div>
@@ -55,6 +55,7 @@
                 <span class="explanation">あと</span><h1 id="turn-count"><%= max_turn - @room.th_turn + 1 %></h1><span class="explanation">ターンで</span>
             </div>
             <div class="last-chara-box">
+                <div id="last_picname" class="<%= @room.last_picname %>"></div>
                 <h1 id="last-character">「<%= @room.rand_last_character %>」</h1><span class="explanation">で終わろう！</span>
             </div>
         </div>

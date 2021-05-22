@@ -10,7 +10,7 @@ const appLounge = consumer.subscriptions.create({channel: 'LoungeChannel', room:
   },
 
   received(data) {
-    console.log("Game Start!");
+    // console.log("Game Start!");
     if(data['game'] === 0 && $('#room_info').data('room_name') === data['roomname']){
       window.location.pathname = "rooms/" + data['roomname']
     }
@@ -31,7 +31,7 @@ const appLounge = consumer.subscriptions.create({channel: 'LoungeChannel', room:
 });
 
 window.addEventListener('load', function () {
-  console.log("yay");
+  // console.log("yay");
   let characters = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわがぎぐげござじずぜぞだづでどばびぶべぼぱぴぷぺぽきいち"
   let initial_rand = Math.floor( Math.random() * (70) );
   let final_rand = Math.floor( Math.random() * (70) );

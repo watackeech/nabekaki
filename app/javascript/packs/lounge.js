@@ -1,7 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", function(){
     window.addEventListener('load', function () {
-    console.log("loading");
+    // console.log("loading");
     function ajaxUpdate(url, element) {
 
         // urlを加工し、キャッシュされないurlにする。

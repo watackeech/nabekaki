@@ -1,6 +1,6 @@
 <div class="results-top-box">
     <h1 id="results-roomname"><%= @room.room_name %></h1>
-    <h1 id="total-score">全体スコア：<%= (@pictures.sum(:points) / @pictures.count).floor %></h1>
+    <h1 id="total-score">全体スコア：<%= (@pictures.sum(:points) / @pictures.count).floor %>点</h1>
 </div>
 
 <% max_score = @pictures.maximum(:points) %>
@@ -11,13 +11,13 @@
             <div class="personal-results">
                 <p id="mvp"><%= p.username %>さんのスコア：
                 <% userpics = Picture.where(room_name: p.roomname, user_id: p.id) %>
-                <%= (userpics.sum(:points) / userpics.count).floor %> MVP!</p>
+                <%= (userpics.sum(:points) / userpics.count).floor %>点 MVP!</p>
             </div>
         <% else %>
             <div class="personal-results">
                 <p class="not-mvps"><%= p.username %>さんのスコア：
                 <% userpics = Picture.where(room_name: p.roomname, user_id: p.id) %>
-                <%= (userpics.sum(:points) / userpics.count).floor %></p>
+                <%= (userpics.sum(:points) / userpics.count).floor %>点</p>
             </div>
         <% end %>
     <% end %>

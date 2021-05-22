@@ -41,9 +41,21 @@
     <%= image_tag 'kiwi', id: "kiwi", width: "8%", height: "auto" %>
     <%= image_tag 'banana', id: "banana", width: "8%", height: "auto" %>
     <%= image_tag 'hamaie', id: "hamaie", width: "10%", height: "auto" %>
-    <h1 id="tips-title" class="box-title">さっそく始めよう！</h1>
-    <h2 class="box-passage btn btn--orange btn--cubic btn--shadow" id="btn1"><div class="btn-text">ルームさくせい</div></h2>
-    <h2 class="box-passage btn btn--orange btn--cubic btn--shadow" id="btn2"><div class="btn-text">ルームさんか</div></h2>
-    <h2 class="box-passage btn btn--orange btn--cubic btn--shadow" id="btn3"><div class="btn-text">ルールかくにん</div></h2>
+    <h1 id="last-title" class="box-title">さっそく始めよう！</h1>
+    <div class="last-btns" id="btn1">
+        <%= link_to(rooms_new_path, class:"last-link") do %>
+            <div class="last btn-box btn">
+            <h2 class="last-btn-text">ルームさくせい</h2>
+            </div>
+        <% end %>
+    </div>
+    <div class="last-btns" id="btn2">
+        <%= link_to(rooms_join_path, class:"last-link") do %>
+            <div class="last btn-box btn">
+                <h2 class="last-btn-text">ルームさんか</h2>
+            </div>
+        <% end %>
+    </div>
+
 </div>
 <div id='user_info' data-user_id="<%# @user.id %>" data-user_name="<%# @user.username %>">
