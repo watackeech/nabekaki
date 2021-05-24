@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
         childList: true,
         characterData: true
     };
-    var observer = new MutationObserver(function(){
+
         function draw(x, y, currentLineWidth, currentColor, isDrag) {
             if (!isDrag) {
                 return;
@@ -47,59 +47,15 @@ window.addEventListener('load', () => {
             mouse.y = null;
         }
 
-        // function widthA(){
-        //     currentLineWidth = 5;
-        // }
-        // function widthB(){
-        //     currentLineWidth = 30;
-        // }
-        // function widthC(){
-        //     currentLineWidth = 10;
-        // }
-        // function eraser(){
-        //     currentColor = "white"
-        // }
-        // function black(){
-        //     currentColor = "white"
-        // }
         function clear(){
-            // ctx.fillStyle = "#ffffff"; //#############################################################################
             ctx.clearRect(0,0,canvas.width, canvas.height);
         }
-        // function yellow(){
-        //     currentColor = "yellow"
-        // }
-        // function blue(){
-        //     currentColor = "blue"
-        // }
-        // function red(){
-        //     currentColor = "red"
-        // }
-        // function green(){
-        //     currentColor = "green"
-        // }
         function initEventHandler() {
             // const eraserButton = document.querySelector('#eraser');
-            // const blackButton = document.querySelector('#black');
-            // const yellowButton = document.querySelector('#yellow');
-            // const blueButton = document.querySelector('#blue');
-            // const greenButton = document.querySelector('#green');
-            // const redButton = document.querySelector('#red');
-            // const widthAButton = document.querySelector('#widthA');
-            // const widthBButton = document.querySelector('#widthB');
-            // const widthCButton = document.querySelector('#width');
             const clearButton = document.querySelector('#clear-btn');
 
             clearButton.addEventListener('click', clear);
-            // widthAButton.addEventListener('click', widthA);
-            // widthBButton.addEventListener('click', widthB);
-            // widthCButton.addEventListener('click', widthC);
             // eraserButton.addEventListener('click', eraser);
-            // blackButton.addEventListener('click', black);
-            // yellowButton.addEventListener('click', yellow);
-            // blueButton.addEventListener('click', blue);
-            // greenButton.addEventListener('click', green);
-            // redButton.addEventListener('click', red);
             canvas.addEventListener('mousedown', dragStart);
             canvas.addEventListener('mouseup', dragEnd);
             canvas.addEventListener('mouseout', dragEnd);
@@ -109,26 +65,10 @@ window.addEventListener('load', () => {
         }
         function exitEventHandler() {
             // const eraserButton = document.querySelector('#eraser');
-            // const blackButton = document.querySelector('#black');
-            // const yellowButton = document.querySelector('#yellow');
-            // const blueButton = document.querySelector('#blue');
-            // const greenButton = document.querySelector('#green');
-            // const redButton = document.querySelector('#red');
-            // const widthAButton = document.querySelector('#widthA');
-            // const widthBButton = document.querySelector('#widthB');
-            // const widthCButton = document.querySelector('#widthC');
             const clearButton = document.querySelector('#clear-btn');
 
             clearButton.addEventListener('click', clear);
-            // widthAButton.addEventListener('click', widthA);
-            // widthBButton.addEventListener('click', widthB);
-            // widthCButton.addEventListener('click', widthC);
             // eraserButton.addEventListener('click', eraser);
-            // blackButton.addEventListener('click', black);
-            // yellowButton.addEventListener('click', yellow);
-            // blueButton.addEventListener('click', blue);
-            // greenButton.addEventListener('click', green);
-            // redButton.addEventListener('click', red);
 
             canvas.removeEventListener('mousedown', dragStart);
             canvas.removeEventListener('mouseup', dragEnd);
@@ -137,26 +77,17 @@ window.addEventListener('load', () => {
                 draw(event.layerX, event.layerY, currentLineWidth, currentColor, isDrag);
             });
         };
-
-        // function setBgColor(){
-        //     // canvasの背景色を設定(指定がない場合にjpeg保存すると背景が黒になる)
-        //     ctx.fillStyle = "#ffffff";
-        //     ctx.fillRect(0,0,canvas.width, canvas.height);
-        // }
-
+    var observer = new MutationObserver(function(){
         function authorized(){
         //     // if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
             if($("#can_you_draw").attr("class") == "yes"){
                 initEventHandler();
-                // initConfigOfLineWidth();
-        //         // console.log("I can draw!");
             }else{
                 exitEventHandler(); //#############################################################3
                 dragEnd();
             };
         };
-        // // ここがうまくいかないです
-        setTimeout(authorized, 50);
+        setTimeout(authorized, 100);
         let count = 60
         let countDown = setInterval(function(){
             count -= 1

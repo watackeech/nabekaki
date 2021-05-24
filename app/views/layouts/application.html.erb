@@ -12,6 +12,9 @@
   <header>
     <%= link_to image_tag("title_logo.png", id:"header-title", class:"header-images"), root_path %>
     <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
+    <div id="header-version">
+      <p id="version-text">Ver.1.1</p>
+    </div>
     <div id="header-info">
       <% if user_signed_in? %>
         <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
@@ -19,8 +22,6 @@
         deviseにより自動で作成されてますので、rake routesで確認できます -->
         <div class="header-links" id="header-message">
           こんにちは！ <strong id="header-username"><%= current_user.username %></strong> さん
-        </div>
-        <div class="header-links">
         </div>
         <div class="header-links">
           <%= link_to(rooms_new_path) do %>
@@ -54,7 +55,7 @@
         </div>
       <% else %>
           <div class="header-links">
-            さっそく登録！orログイン！
+            さっそくとうろく！orログイン！
           </div>
           <div class="header-links">
             <%= link_to(new_user_session_path) do %>
@@ -95,6 +96,10 @@
         width: 16vw;
         height: auto;
         margin-left: 1.5vw;
+      }
+      #version-text{
+        margin-top: 46%;
+        font-size: 1.5vw;
       }
       #header-message{
         margin-right:3vw;

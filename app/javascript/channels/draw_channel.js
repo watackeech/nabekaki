@@ -75,27 +75,11 @@ import consumer from "./consumer"
     //     currentColor = "green"
     // }
     function initEventHandler() {
-      // const widthAButton = document.querySelector('#widthA');
-      // const widthBButton = document.querySelector('#widthB');
-      // const widthCButton = document.querySelector('#widthC');
       // const eraserButton = document.querySelector('#eraser');
       const clearButton = document.querySelector('#clear-btn');
-      // const blackButton = document.querySelector('#black');
-      // const yellowButton = document.querySelector('#yellow');
-      // const blueButton = document.querySelector('#blue');
-      // const greenButton = document.querySelector('#green');
-      // const redButton = document.querySelector('#red');
 
-      // widthAButton.addEventListener('click', widthA);
-      // widthBButton.addEventListener('click', widthB);
-      // widthCButton.addEventListener('click', widthC);
       // eraserButton.addEventListener('click', eraser);
       clearButton.addEventListener('click', clear);
-      // blackButton.addEventListener('click', black);
-      // yellowButton.addEventListener('click', yellow);
-      // blueButton.addEventListener('click', blue);
-      // greenButton.addEventListener('click', green);
-      // redButton.addEventListener('click', red);
       canvas.addEventListener('mousedown', dragStart);
       canvas.addEventListener('mouseup', dragEnd);
       canvas.addEventListener('mouseout', dragEnd);
@@ -103,38 +87,13 @@ import consumer from "./consumer"
           draw(event.layerX, event.layerY, isDrag);
       });
     };
-    // function initConfigOfLineWidth() {
-    //   const widthNum = document.querySelector('#width-num');
-    //   const lineWidth = document.querySelector('#line-width');
-    //   currentLineWidth = lineWidth.value;
-    //   lineWidth.addEventListener('input', event => {
-    //       const width = event.target.value;
-    //       currentLineWidth = width;
-    //       widthNum.innerText = width;
-    //   });
-    // };
+
     function exitEventHandler() {
       // const eraserButton = document.querySelector('#eraser');
-      // const blackButton = document.querySelector('#black');
-      // const yellowButton = document.querySelector('#yellow');
-      // const blueButton = document.querySelector('#blue');
-      // const greenButton = document.querySelector('#green');
-      // const redButton = document.querySelector('#red');
-      // const widthAButton = document.querySelector('#widthA');
-      // const widthBButton = document.querySelector('#widthB');
-      // const widthCButton = document.querySelector('#widthC');
       const clearButton = document.querySelector('#clear-btn');
 
       clearButton.addEventListener('click', clear);
-      // widthAButton.addEventListener('click', widthA);
-      // widthBButton.addEventListener('click', widthB);
-      // widthCButton.addEventListener('click', widthC);
       // eraserButton.addEventListener('click', eraser);
-      // blackButton.addEventListener('click', black);
-      // yellowButton.addEventListener('click', yellow);
-      // blueButton.addEventListener('click', blue);
-      // greenButton.addEventListener('click', green);
-      // redButton.addEventListener('click', red);
 
       canvas.removeEventListener('mousedown', dragStart);
       canvas.removeEventListener('mouseup', dragEnd);
@@ -143,25 +102,7 @@ import consumer from "./consumer"
           draw(event.layerX, event.layerY, currentLineWidth, currentColor, isDrag);
       });
     };
-    // function exitConfigOfLineWidth() {
-    //   const widthNum = document.querySelector('#width-num');
-    //   const lineWidth = document.querySelector('#line-width');
-    //   currentLineWidth = lineWidth.value;
-    //   lineWidth.removeEventListener('input', event => {
-    //       const width = event.target.value;
-    //       currentLineWidth = width;
-    //       widthNum.innerText = width;
-    //   });
-    // };
 
-    function authorized(){
-      if($("#can_you_draw").attr("class") == "yes"){
-        initEventHandler();
-      }else{
-        exitEventHandler();
-        dragEnd();
-      };
-    }
     const elem = document.getElementById('btn-reload');
     const config = {
         attributes: true,
@@ -169,8 +110,15 @@ import consumer from "./consumer"
         characterData: true
     };
     var observer = new MutationObserver(function(){
-      setTimeout(authorized, 200);
-      // function startCountDown(){
+      function authorized(){
+        if($("#can_you_draw").attr("class") == "yes"){
+          initEventHandler();
+        }else{
+          exitEventHandler();
+          dragEnd();
+        };
+      };
+      setTimeout(authorized, 100);
       let count = 60
       let countDown = setInterval(function(){
         count -= 1
@@ -178,11 +126,11 @@ import consumer from "./consumer"
           exitEventHandler();
           dragEnd();
           // $("#can_you_draw").removeAttr("class");
-          // $("#can_you_draw").attr({class : "no"})
+          // $("#can_you_draw").attr({class : "no"}) oekaki.jsのほうでやってくれてる
           clearInterval(countDown);
         }
         // else if(count <= 10){
-          // $('#count-down').css('color','red');
+          // $('#count-down').css('color','red'); oekaki.jsのほうでやってくれてる
         // }
       },1000);
       // }

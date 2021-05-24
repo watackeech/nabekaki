@@ -344,73 +344,73 @@ document.addEventListener("DOMContentLoaded", function(){
       ctx.clearRect(0,0,canvas.width, canvas.height);
       $('.current-players').css('background-color','#F8DF77');
       $('#'+$("#current_draw_number").attr("class")+'th-player').css('background-color','#FF4E62');
-
-      if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
-        // console.log("you can draw");
-        $("#can_you_draw").removeAttr("class");
-        $("#can_you_draw").attr({class : "yes"})
-        let count = 60;
-        let countDown = setInterval(function(){
-          count -= 1
-          appPicpost.countDown(count, $("#current_draw_number").attr("class"));
-          $("#count-down").text(String(count))
-          if(count <= 0) {
+      function remoteAuthorized(){
+        if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
+          // console.log("you can draw");
+          $("#can_you_draw").removeAttr("class");
+          $("#can_you_draw").attr({class : "yes"})
+          let count = 60;
+          let countDown = setInterval(function(){
+            count -= 1
             appPicpost.countDown(count, $("#current_draw_number").attr("class"));
-            $("#can_you_draw").removeAttr("class");
-            $("#can_you_draw").attr({class : "no"})
-            clearInterval(countDown);
-          }else if(count <= 10){
-            $('#count-down').css('color','red');
-          }else{
-            $('#count-down').css('color','black');
-          }
-        },1000);
-        $('#turn-btn').on('click', function() {
-          if(isHiragana($('#picname_form').val()) && $('#picname_form').val().length>0){
-            lastCharacter($('#last_picname').attr("class"));
-            makeJudge($('#picname_form').val());
-            // console.log("before certification");
-            if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
-              // console.log("click verify");
-              gameMaster();
+            $("#count-down").text(String(count))
+            if(count <= 0) {
+              appPicpost.countDown(count, $("#current_draw_number").attr("class"));
               $("#can_you_draw").removeAttr("class");
               $("#can_you_draw").attr({class : "no"})
               clearInterval(countDown);
+            }else if(count <= 10){
+              $('#count-down').css('color','red');
+            }else{
+              $('#count-down').css('color','black');
             }
-          }else{
-            alert("ひらがなをにゅうりょくしよう！");
-            // $("#wordcount").text(String($('#picname_form').val().length) + "文字")
-          }
-        });
-        // $("#picname_form").keyup(function(event) {
-        //   $("#wordcount").text(String($('#picname_form').val().length) + "文字")
-        // });
-        $("#picname_form").keydown(function(event) {
-          if (event.key === "Enter"){
+          },1000);
+          $('#turn-btn').on('click', function() {
             if(isHiragana($('#picname_form').val()) && $('#picname_form').val().length>0){
               lastCharacter($('#last_picname').attr("class"));
               makeJudge($('#picname_form').val());
-              // console.log("click ver before certification");
+              // console.log("before certification");
               if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
-                // console.log("enter verify");
-                event.preventDefault();
+                // console.log("click verify");
                 gameMaster();
                 $("#can_you_draw").removeAttr("class");
-                $("#can_you_draw").attr({class : "no"});
+                $("#can_you_draw").attr({class : "no"})
                 clearInterval(countDown);
               }
             }else{
-              alert("ひらがなでにゅうりょくしよう！");
+              alert("ひらがなをにゅうりょくしよう！");
               // $("#wordcount").text(String($('#picname_form').val().length) + "文字")
+            }
+          });
+          // $("#picname_form").keyup(function(event) {
+          //   $("#wordcount").text(String($('#picname_form').val().length) + "文字")
+          // });
+          $("#picname_form").keydown(function(event) {
+            if (event.key === "Enter"){
+              if(isHiragana($('#picname_form').val()) && $('#picname_form').val().length>0){
+                lastCharacter($('#last_picname').attr("class"));
+                makeJudge($('#picname_form').val());
+                // console.log("click ver before certification");
+                if(confirm("【" + $('#picname_form').val() + "】（" + String($('#picname_form').val().length) + "文字）でほんとにおっけー？")){
+                  // console.log("enter verify");
+                  event.preventDefault();
+                  gameMaster();
+                  $("#can_you_draw").removeAttr("class");
+                  $("#can_you_draw").attr({class : "no"});
+                  clearInterval(countDown);
+                }
+              }else{
+                alert("ひらがなでにゅうりょくしよう！");
+                // $("#wordcount").text(String($('#picname_form').val().length) + "文字")
+              };
             };
-          };
-        });
-      }else{
-        $("#can_you_draw").removeAttr("class");
-        $("#can_you_draw").attr({class : "no"})
+          });
+        }else{
+          $("#can_you_draw").removeAttr("class");
+          $("#can_you_draw").attr({class : "no"})
+        }
       }
-
-      // console.log('DOMが変化しました');
+      setTimeout(remoteAuthorized, 60);
     });
     observer.observe(elem, config);
   };
