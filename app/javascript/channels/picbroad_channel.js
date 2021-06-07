@@ -348,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function(){
         if(String($('#user_info').data('randorder')) === $("#current_draw_number").attr("class")){
           // console.log("you can draw");
           $("#can_you_draw").removeAttr("class");
-          $("#can_you_draw").attr({class : "yes"})
+          $("#can_you_draw").attr({class : "yes"});
           let count = 60;
           let countDown = setInterval(function(){
             count -= 1
